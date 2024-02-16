@@ -6,7 +6,7 @@
         <h3>
             Detail Presensi
         </h3>
-        <a href="{{ route('admin.absensi.index') }}"> < kembali</a>
+        <a href="{{ route('admin.absensi.index') }}"> < KembaliAN</a>
         <div class="container py-3">
         <p><img src="/assets/img/kupu.jpg" class="rounded-circle" width="50" height="50" style="object-fit:cover"/> Rizka Amelia - 203200117</></p>
         <div class="table-responsive text-nowrap card">
