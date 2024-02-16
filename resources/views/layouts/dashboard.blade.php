@@ -45,6 +45,7 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -65,7 +66,9 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
   </head>
-
+<style>
+  @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -148,27 +151,60 @@
                 <div data-i18n="Analytics">Beranda</div>
               </a>
             </li>
+
+          @if (Auth::user()->roles == 'admin')
             <li class="menu-item {{ request()->is('admin/absensi*') || request()->is('admin/detail_absensi') ? 'active' : '' }}">
-                <a href="{{ route('admin.absensi.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                    <div data-i18n="Analytics">Rekap Absensi</div>
-                </a>
-            </li>
-            
- 
-            <li class="menu-item {{ request()->is('admin/logbook*') || request()->is('admin/detail_logbook')? 'active' : '' }}">
-                <a href= "{{ route('admin.logbook.index') }}" class="menu-link">
+              <a href="{{ route('admin.absensi.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div data-i18n="Analytics">Rekap Logbook</div>
-                </a>
-              </li>
-                
-              <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-                <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+                  <div data-i18n="Analytics">Rekap Absensi</div>
+              </a>
+          </li>
+          
+
+          <li class="menu-item {{ request()->is('admin/logbook*') || request()->is('admin/detail_logbook')? 'active' : '' }}">
+              <a href= "{{ route('admin.logbook.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Laporan Akhir</div>
+                <div data-i18n="Analytics">Rekap Logbook</div>
               </a>
             </li>
+              
+            <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
+              <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Laporan Akhir</div>
+            </a>
+          </li>
+            @endif
+
+          @if (Auth::User()->roles == 'mahasiswa')
+            <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
+              <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Absensi</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
+            <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Logbook</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
+          <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Laporan Akhir</div>
+        </a>
+      </li>
+      
+      <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
+        <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Riwayat</div>
+      </a>
+    </li>
+    
+          @endif
+          
             
             <li class="menu-item fixed-bottom ">
               <form method="POST" action="{{ route('logout') }}">

@@ -16,21 +16,21 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/absensi', [AdminController::class, 'absensi'])->name('admin.absensi.index');
     Route::get('/admin/logbook', [AdminController::class, 'logbook'])->name('admin.logbook.index');
     Route::get('/admin/laporan_akhir', [AdminController::class, 'laporan_akhir'])->name('admin.laporan_akhir.index');
     Route::get('/admin/detail_logbook', [AdminController::class, 'detail_logbook'])->name('admin.detail_logbook.index');
     Route::get('/admin/detail_absensi', [AdminController::class, 'detail_absensi'])->name('admin.detail_absensi.index');
-
-});
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
- 
 
 
 });
