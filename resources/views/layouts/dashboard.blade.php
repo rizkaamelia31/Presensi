@@ -152,7 +152,7 @@
               </a>
             </li>
 
-          @if (Auth::user()->roles == 'admin')
+          @if (Auth::user()->role_id == 2)
             <li class="menu-item {{ request()->is('admin/absensi*') || request()->is('admin/detail_absensi') ? 'active' : '' }}">
               <a href="{{ route('admin.absensi.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
@@ -176,7 +176,7 @@
           </li>
             @endif
 
-          @if (Auth::User()->roles == 'mahasiswa')
+          @if (Auth::User()->role_id == 1)
             <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
               <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>

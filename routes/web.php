@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogbookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -25,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/admin/absensi', [AdminController::class, 'absensi'])->name('admin.absensi.index');
     Route::get('/admin/logbook', [AdminController::class, 'logbook'])->name('admin.logbook.index');
     Route::get('/admin/laporan_akhir', [AdminController::class, 'laporan_akhir'])->name('admin.laporan_akhir.index');
@@ -35,13 +36,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
-   
-
+Route::middleware(['auth', 'role:1'])->group(function () {
+   Route::get('/mahasiswa/logbook', [LogbookController::class, 'index'])->name('mahasiswa.logbook.index');
+   Route::post('/logbook', [LogbookController::class, 'store'])->name('logbook.store');
 
 });
 
-Route::middleware(['auth', 'role:mitra'])->group(function () {
+Route::middleware(['auth', 'role:3'])->group(function () {
   
 });
 
