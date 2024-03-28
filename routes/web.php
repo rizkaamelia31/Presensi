@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -32,7 +33,8 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/admin/laporan_akhir', [AdminController::class, 'laporan_akhir'])->name('admin.laporan_akhir.index');
     Route::get('/admin/detail_logbook', [AdminController::class, 'detail_logbook'])->name('admin.detail_logbook.index');
     Route::get('/admin/detail_absensi', [AdminController::class, 'detail_absensi'])->name('admin.detail_absensi.index');
-
+    Route::get('/admin/user', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 });
 
