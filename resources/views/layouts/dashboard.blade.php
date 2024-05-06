@@ -153,7 +153,7 @@
             </li>
 
             @if (Auth::user()->role_id == 2)
-            <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
               <a href="/users" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Buat Akun</div>

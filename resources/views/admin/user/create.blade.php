@@ -1,7 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
-<div class="container">
-    <h2>Tambah Data Pengguna</h2>
+<div class="container mt-5">
+    <div class="card p-3">
+       <h3>Tambah Data Pengguna</h3>
     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -58,8 +59,9 @@
             <textarea class="form-control" id="alamat" name="alamat"></textarea>
         </div>
         
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary mt-2">Simpan</button>
     </form>
+   </div>
 </div>
 <script>
     document.getElementById('role_id').addEventListener('change', function() {
