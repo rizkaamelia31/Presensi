@@ -3,8 +3,7 @@
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\DosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +26,13 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:2'])->group(function () {
-    Route::get('/admin/absensi', [AdminController::class, 'absensi'])->name('admin.absensi.index');
-    Route::get('/admin/logbook', [AdminController::class, 'logbook'])->name('admin.logbook.index');
-    Route::get('/admin/laporan_akhir', [AdminController::class, 'laporan_akhir'])->name('admin.laporan_akhir.index');
-    Route::get('/admin/detail_logbook', [AdminController::class, 'detail_logbook'])->name('admin.detail_logbook.index');
-    Route::get('/admin/detail_absensi', [AdminController::class, 'detail_absensi'])->name('admin.detail_absensi.index');
-    Route::get('/admin/user', [UserController::class, 'index'])->name('users.index');
+Route::middleware(['auth', 'role:4'])->group(function () {
+    Route::get('/dosen/absensi', [DosenController::class, 'absensi'])->name('dosen.absensi.index');
+    Route::get('/dosen/logbook', [DosenController::class, 'logbook'])->name('dosen.logbook.index');
+    Route::get('/dosen/laporan_akhir', [DosenController::class, 'laporan_akhir'])->name('dosen.laporan_akhir.index');
+    Route::get('/dosen/detail_logbook', [DosenController::class, 'detail_logbook'])->name('dosen.detail_logbook.index');
+    Route::get('/dosen/detail_absensi', [DosenController::class, 'detail_absensi'])->name('dosen.detail_absensi.index');
+    Route::get('/dosen/user', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 });
@@ -45,7 +44,13 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:3'])->group(function () {
-  
+    Route::get('/mitra/absensi', [MitraController::class, 'logbook'])->name('mitra.logbook.index');
+});
+
+
+Route::middleware(['auth', 'role:2'])->group(function () {
+    Route::get('/admin/beranda', [AdminController::class, 'beranda'])->name('admin.beranda.index');
+    Route::resource('users', UserController::class);
 });
 
 

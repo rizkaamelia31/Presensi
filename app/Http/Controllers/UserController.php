@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Perusahaan;
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
+use App\Models\Mitra;
 
 class UserController extends Controller
 {
@@ -26,7 +31,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
+        $roles = Role::all();
+        $perusahaan = Perusahaan::all();
+        return view('admin.user.create',compact('roles','perusahaan'));
     }
 
     /**
@@ -37,21 +45,58 @@ class UserController extends Controller
      */
     
 
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8',
-        ]);
-    
-        // Enkripsi password menggunakan Hash::make()
-        $validatedData['password'] = Hash::make($validatedData['password']);
-    
-        $user = User::create($validatedData);
-    
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+        // Validasi data inputan di sini jika diperlukan
+        
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role_id = $request->role_id;
+        $user->save();
+
+        // Handle image upload if a file is uploaded
+        if ($request->hasFile('gambar_dosen') && $request->role_id == 2) {
+            $gambar = $request->file('gambar_dosen');
+            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+            $path = $gambar->storeAs('public/gambar', $nama_gambar);
+
+            $dosen = new Dosen();
+            $dosen->user_id = $user->id;
+            $dosen->nidn = $request->nidn;
+            $dosen->perusahaan_id = $request->perusahaan_id;
+            $dosen->gambar = $path;
+            $dosen->save();
+        }
+
+        if ($request->hasFile('gambar_mahasiswa') && $request->role_id == 1) {
+            $gambar = $request->file('gambar_mahasiswa');
+            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+            $path = $gambar->storeAs('public/gambar', $nama_gambar);
+
+            $mahasiswa = new Mahasiswa();
+            $mahasiswa->user_id = $user->id;
+            $mahasiswa->tanggal_lahir = $request->tanggal_lahir;
+            $mahasiswa->magang_batch = $request->magang_batch;
+            $mahasiswa->perusahaan_id = $request->perusahaan_id_mhs;
+            $mahasiswa->nama_supervisor = $request->nama_supervisor;
+            $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
+            $mahasiswa->gambar = $path;
+            $mahasiswa->save();
+        }
+
+        if ($request->role_id == 3) {
+            $mitra = new Perusahaan();
+            $mitra->user_id = $user->id;
+            $mitra->nama_perusahaan = $request->nama_perusahaan;
+            $mitra->alamat = $request->alamat;
+            $mitra->save();
+        }
+
+        return redirect()->route('users.index')->with('success', 'Data pengguna berhasil disimpan.');
     }
+     
     
 
     /**
@@ -62,7 +107,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

@@ -1,14 +1,10 @@
 @extends('layouts.dashboard')
 @section('content')
 <div class="container py-5">
-
-  @extends('layouts.dashboard')
-@section('content')
-<div class="container py-5">
   <div class="row vh-100">
     <div class="co-md-12">
         <h3>
-            Rekap Logbook
+            Rekap Presensi
         </h3>
         <div class="table-responsive text-nowrap card">
             <table class="table text-center">
@@ -18,7 +14,8 @@
                   <th>Foto</th>
                   <th>NIM</th>
                   <th>Nama Mahasiswa</th>
-                  <th>tanggal</th>
+                  <th>Jumlah hadir</th>
+                  <th>Jumlah Tidak hadir</th>
                   <th>Keterangan</th>
 
                 </tr>
@@ -30,7 +27,8 @@
                   <td><p>203200117</p></td>
                   <td><p>Rizka</p></td>
                   <td><p>21</p></td>
-                  <td><a href="{{ route('admin.detail_logbook.index') }}" class="btn btn-primary">lihat detail</a></td>
+                  <td><p>2</p></td>
+                  <td><a href="{{ route('dosen.detail_absensi.index') }}" class="btn btn-primary">lihat detail</a></td>
                 </tr>
               </tbody>
             </table>
@@ -38,10 +36,6 @@
         
     </div>
 </div>
-    
-   
-   
-@endsection
     
    
    

@@ -152,24 +152,39 @@
               </a>
             </li>
 
-          @if (Auth::user()->role_id == 2)
-            <li class="menu-item {{ request()->is('admin/absensi*') || request()->is('admin/detail_absensi') ? 'active' : '' }}">
-              <a href="{{ route('admin.absensi.index') }}" class="menu-link">
+            @if (Auth::user()->role_id == 2)
+            <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+              <a href="/users" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Buat Akun</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+              <a href="/home" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Setting</div>
+              </a>
+            </li>
+            @endif
+
+          @if (Auth::user()->role_id == 4)
+            <li class="menu-item {{ request()->is('dosen/absensi*') || request()->is('dosen/detail_absensi') ? 'active' : '' }}">
+              <a href="{{ route('dosen.absensi.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Rekap Absensi</div>
               </a>
           </li>
           
 
-          <li class="menu-item {{ request()->is('admin/logbook*') || request()->is('admin/detail_logbook')? 'active' : '' }}">
-              <a href= "{{ route('admin.logbook.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('dosen/logbook*') || request()->is('dosen/detail_logbook')? 'active' : '' }}">
+              <a href= "{{ route('dosen.logbook.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Rekap Logbook</div>
               </a>
             </li>
               
-            <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-              <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
+              <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Laporan Akhir</div>
             </a>
@@ -177,32 +192,40 @@
             @endif
 
           @if (Auth::User()->role_id == 1)
-            <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-              <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('dosen/absensi*') ? 'active' : '' }}">
+              <a href= "{{ route('dosen.absensi.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Absensi</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-            <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
+            <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
           </a>
         </li>
-        <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-          <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+        <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
+          <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Laporan Akhir</div>
         </a>
       </li>
       
-      <li class="menu-item {{ request()->is('admin/laporan_akhir*') ? 'active' : '' }}">
-        <a href= "{{ route('admin.laporan_akhir.index') }}" class="menu-link">
+      <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
+        <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">Riwayat</div>
       </a>
     </li>
     
+          @endif
+
+          @if (Auth::user()->role_id == 3)
+          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
+            <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Logbook</div>
+          </a>
           @endif
           
             

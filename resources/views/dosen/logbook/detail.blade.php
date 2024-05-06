@@ -7,7 +7,7 @@
 
 
 <div class="container py-4">
-    <a href="{{ route('admin.logbook.index') }}"> < Kembali</a>
+    <a href="{{ route('dosen.logbook.index') }}"> < Kembali</a>
       <p><img src="/assets/img/kupu.jpg" class="rounded-circle" width="50" height="50" style="object-fit:cover"/> Rizka Amelia - 203200117</></p> 
     <div class="col-md mb-4 mb-md-0">
         <div class="accordion mt-3" id="accordionExample">
