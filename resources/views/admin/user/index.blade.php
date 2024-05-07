@@ -28,8 +28,14 @@
             <td>{{$item->email}}</td>
             <td>{{$item->role->name}}</td>
             <td>
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+
+                <a href="{{route('users.edit',$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
+
+                <form action="{{route('users.destroy',$item->id)}}" method="post">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                </form>
             </td>
         </tr>
            @endforeach

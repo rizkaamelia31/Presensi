@@ -15,6 +15,8 @@
         </div>
         <div class="form-group">
             <label for="role_id">Roles:</label>
+
+            
             <select class="form-control" id="role_id" name="role_id">
                 <option value="">Pilih roles</option>
                 @foreach ($roles as $item)
@@ -71,7 +73,7 @@
         var mitraFields = document.getElementById('mitra-fields');
 
         if (selectedRole == '2') { // ID untuk peran 'Dosen'
-            dosenFields.style.display = 'block';
+            dosenFields.style.display = 'none';
             mahasiswaFields.style.display = 'none';
             mitraFields.style.display = 'none';
         } else if (selectedRole == '1') { // ID untuk peran 'Mahasiswa'

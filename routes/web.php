@@ -51,6 +51,8 @@ Route::middleware(['auth', 'role:3'])->group(function () {
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/admin/beranda', [AdminController::class, 'beranda'])->name('admin.beranda.index');
     Route::resource('users', UserController::class);
+
+
 });
 
 
