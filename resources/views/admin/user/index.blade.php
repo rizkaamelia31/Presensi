@@ -24,7 +24,7 @@
         <tbody>
            @foreach ($users as $item)
            <tr>
-            <td>J{{$item->name}}</td>
+            <td>{{$item->name}}</td>
             <td>{{$item->email}}</td>
             <td>{{$item->role->name}}</td>
             <td>

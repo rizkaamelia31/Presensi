@@ -57,7 +57,7 @@ class UserController extends Controller
         $user->save();
 
         // Handle image upload if a file is uploaded
-        if ($request->hasFile('gambar_dosen') && $request->role_id == 2) {
+        if ($request->hasFile('gambar_dosen') && $request->role_id == 4) {
             $gambar = $request->file('gambar_dosen');
             $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
             $path = $gambar->storeAs('public/gambar', $nama_gambar);
@@ -65,7 +65,6 @@ class UserController extends Controller
             $dosen = new Dosen();
             $dosen->user_id = $user->id;
             $dosen->nidn = $request->nidn;
-            $dosen->perusahaan_id = $request->perusahaan_id;
             $dosen->gambar = $path;
             $dosen->save();
         }
@@ -132,7 +131,50 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        // Validasi data inputan di sini jika diperlukan
+        
+        $user = User::find($id);
+        $user->name = $request->name;
+        if ($request->email != $user->email) {
+            $request->validate([
+                'email' => 'required|email|unique:users,email,' . $user->id,
+            ]);
+            $user->email = $request->email;
+        }
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->role_id = $request->role_id;
+
+        $user->save();
+    
+        // Handle image upload if a file is uploaded
+        if ($request->hasFile('gambar_dosen') && $request->role_id == 2) {
+            // Proses upload gambar
+        }
+    
+        if ($request->hasFile('gambar_mahasiswa') && $request->role_id == 1) {
+            $gambar = $request->file('gambar_mahasiswa');
+            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+            $path = $gambar->storeAs('public/gambar', $nama_gambar);
+
+            $mahasiswa = new Mahasiswa();
+            $mahasiswa->user_id = $user->id;
+            $mahasiswa->tanggal_lahir = $request->tanggal_lahir;
+            $mahasiswa->magang_batch = $request->magang_batch;
+            $mahasiswa->perusahaan_id = $request->perusahaan_id_mhs;
+            $mahasiswa->nama_supervisor = $request->nama_supervisor;
+            $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
+            $mahasiswa->gambar = $path;
+            $mahasiswa->save();
+        }
+    
+        if ($request->role_id == 3) {
+            // Proses update data mitra
+        }
+    
+        return redirect()->route('users.index')->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
     /**

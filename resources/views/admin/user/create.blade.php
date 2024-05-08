@@ -28,8 +28,6 @@
         <div class="form-group" id="dosen-fields" style="display: none;">
             <label for="nidn">NIDN:</label>
             <input type="text" class="form-control" id="nidn" name="nidn">
-            <label for="perusahaan_id">Perusahaan:</label>
-            <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id">
             <label for="gambar_dosen">Gambar Dosen:</label>
             <input type="file" class="form-control" id="gambar_dosen" name="gambar_dosen">
         </div>
@@ -72,7 +70,7 @@
         var mahasiswaFields = document.getElementById('mahasiswa-fields');
         var mitraFields = document.getElementById('mitra-fields');
 
-        if (selectedRole == '2') { // ID untuk peran 'Dosen'
+        if (selectedRole == '2') { 
             dosenFields.style.display = 'none';
             mahasiswaFields.style.display = 'none';
             mitraFields.style.display = 'none';
@@ -84,10 +82,10 @@
             dosenFields.style.display = 'none';
             mahasiswaFields.style.display = 'none';
             mitraFields.style.display = 'block';
-        }  else if (selectedRole == '4') { // ID untuk peran 'Mitra'
+        }  else if (selectedRole == '4') {
             dosenFields.style.display = 'block';
             mahasiswaFields.style.display = 'none';
-            mitraFields.style.display = 'block';
+            mitraFields.style.display = 'none';
         }else {
             dosenFields.style.display = 'none';
             mahasiswaFields.style.display = 'none';

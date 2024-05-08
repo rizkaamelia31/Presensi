@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
@@ -38,8 +38,8 @@ Route::middleware(['auth', 'role:4'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:1'])->group(function () {
-   Route::get('/mahasiswa/logbook', [LogbookController::class, 'index'])->name('mahasiswa.logbook.index');
-   Route::post('/logbook', [LogbookController::class, 'store'])->name('logbook.store');
+   Route::get('/mahasiswa/absensi', [MahasiswaController::class, 'index'])->name('mahasiswa.absensi.index');
+   Route::get('/mahasiswa/logbook', [MahasiswaController::class, 'index'])->name('mahasiswa.logbook.index');
 
 });
 

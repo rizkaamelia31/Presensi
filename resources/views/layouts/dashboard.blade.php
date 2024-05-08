@@ -192,24 +192,18 @@
             @endif
 
           @if (Auth::User()->role_id == 1)
-            <li class="menu-item {{ request()->is('dosen/absensi*') ? 'active' : '' }}">
-              <a href= "{{ route('dosen.absensi.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('mahasiswa/absensi*') ? 'active' : '' }}">
+              <a href= "{{ route('mahasiswa.absensi.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Absensi</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
-            <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
+            <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
           </a>
         </li>
-        <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
-          <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-home-circle"></i>
-          <div data-i18n="Analytics">Laporan Akhir</div>
-        </a>
-      </li>
       
       <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
         <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
