@@ -69,7 +69,7 @@
  
 @endif
 
-@if (Auth::user()->roles == 'mahasiswa')
+@if (Auth::user()->role_id == 1)
     <div class=" py-4">
       <div class="row">
         <div class="col-md-12 mb-2">
@@ -103,6 +103,8 @@
       </div>
     </div>
 @endif
+
+
 
 
 

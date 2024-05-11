@@ -18,4 +18,15 @@ class Mahasiswa extends Model
         'nama_supervisor',
         'no_hp_supervisor',
     ];
+    
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class);
+    }
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
 }

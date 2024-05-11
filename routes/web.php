@@ -38,10 +38,13 @@ Route::middleware(['auth', 'role:4'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:1'])->group(function () {
-   Route::get('/mahasiswa/absensi', [MahasiswaController::class, 'index'])->name('mahasiswa.absensi.index');
-   Route::get('/mahasiswa/logbook', [MahasiswaController::class, 'index'])->name('mahasiswa.logbook.index');
-
-});
+    Route::get('/mahasiswa/logbook', [MahasiswaController::class, 'logbook'])->name('mahasiswa.logbook.index');
+    Route::post('/mahasiswa/logbook/store', [MahasiswaController::class, 'logbookStore'])->name('mahasiswa.logbook.store');
+    Route::get('/mahasiswa/laporan_akhir', [MahasiswaController::class, 'laporan_akhir'])->name('mahasiswa.laporan_akhir.index');
+    Route::get('/mahasiswa/penilaian_akhir', [MahasiswaController::class, 'penilaian_akhir'])->name('mahasiswa.penilaian_akhir.index');
+    Route::post('/upload-laporan', [MahasiswaController::class, 'uploadLaporan'])->name('mahasiswa.upload.laporan');
+ });
+ 
 
 Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/mitra/absensi', [MitraController::class, 'logbook'])->name('mitra.logbook.index');

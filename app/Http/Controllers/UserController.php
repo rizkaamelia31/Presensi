@@ -52,9 +52,10 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make('123123123'); 
         $user->role_id = $request->role_id;
         $user->save();
+        
 
         // Handle image upload if a file is uploaded
         if ($request->hasFile('gambar_dosen') && $request->role_id == 4) {

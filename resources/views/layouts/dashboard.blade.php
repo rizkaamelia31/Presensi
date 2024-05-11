@@ -133,7 +133,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Magang Log</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -192,23 +192,23 @@
             @endif
 
           @if (Auth::User()->role_id == 1)
-            <li class="menu-item {{ request()->is('mahasiswa/absensi*') ? 'active' : '' }}">
-              <a href= "{{ route('mahasiswa.absensi.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
+              <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Analytics">Absensi</div>
+              <div data-i18n="Analytics">Logbook</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
-            <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('mahasiswa/laporan_akhir*') ? 'active' : '' }}">
+            <a href= "{{ route('mahasiswa.laporan_akhir.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Logbook</div>
+            <div data-i18n="Analytics">Laporan Akhir</div>
           </a>
         </li>
       
-      <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
-        <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
+      <li class="menu-item {{ request()->is('mahasiswa/penilaian_akhir*') ? 'active' : '' }}">
+        <a href= "{{ route('mahasiswa.penilaian_akhir.index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">Riwayat</div>
+        <div data-i18n="Analytics">Penilaian Akhir</div>
       </a>
     </li>
     
