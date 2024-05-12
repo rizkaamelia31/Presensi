@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class MitraController extends Controller
 {
-    //
+    public function logbook()
+    {
+        return view("mitra.logbook.index");
+    }
 }

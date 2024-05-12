@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Logbook;
 use App\Models\Mahasiswa;
+use App\Models\Perusahaan;
+use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -19,7 +22,9 @@ class MahasiswaController extends Controller
 
     public function logbook()
     {
-        $logbook = Logbook::orderBy('created_at','desc')->get();
+        $logbook = Logbook::where('mhs_id', Auth::user()->id)
+    ->orderBy('created_at', 'desc')
+    ->get();
         $hariIni = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
         return view("mahasiswa.logbook.index",compact('logbook','hariIni'));
     }
@@ -88,4 +93,71 @@ class MahasiswaController extends Controller
 
         return redirect()->back()->with('success', 'Laporan berhasil diupload');
     }
+
+    public function profil()
+    {
+        $mahasiswa = Mahasiswa::where('user_id', Auth::id())->firstOrFail();
+        $perusahaanList = Perusahaan::all(); // Ambil semua data perusahaan
+        return view('mahasiswa.profil', compact('mahasiswa', 'perusahaanList'));
+    }
+
+    public function updateProfil(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'password' => 'nullable|string|min:8',
+        'tanggal_lahir' => 'required|date',
+        'magang_batch' => 'required|string',
+        'perusahaan_id' => 'required|string',
+        'gambar' => 'nullable',
+        'nama_supervisor' => 'required|string',
+        'no_hp_supervisor' => 'required|string',
+    ]);
+
+    $user = Auth::user();
+    $mahasiswa = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+
+    $userUpdates = [];
+    $mahasiswaUpdates = [];
+
+    // Update data pada tabel Users jika ada perubahan pada name, email, atau password
+    if ($request->filled('name')) {
+        $userUpdates['name'] = $request->input('name');
+    }
+
+    if ($request->filled('email')) {
+        $userUpdates['email'] = $request->input('email');
+    }
+
+    if ($request->filled('password')) {
+        $userUpdates['password'] = bcrypt($request->input('password'));
+    }
+
+    // Update data pada tabel Mahasiswa
+    $mahasiswaUpdates = $request->except(['_token', '_method', 'name', 'email', 'password']);
+
+    if ($request->hasFile('gambar')) {
+        // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
+        if ($mahasiswa->gambar && Storage::exists($mahasiswa->gambar)) {
+            Storage::delete($mahasiswa->gambar);
+        }
+    
+        // Simpan gambar yang baru di storage dan update path gambar di database
+        $gambarPath = $request->file('gambar')->store('public/gambar-mahasiswa');
+        $mahasiswaUpdates['gambar'] = $gambarPath;
+    }
+    // Update data pada tabel Users jika ada perubahan pada name, email, atau password
+    if (!empty($userUpdates)) {
+        $user->update($userUpdates);
+    }
+
+    // Update data pada tabel Mahasiswa
+    if (!empty($mahasiswaUpdates)) {
+        $mahasiswa->update($mahasiswaUpdates);
+    }
+
+    return redirect()->route('mahasiswa.profil')->with('success', 'Profil berhasil diperbarui.');
+}
+
 }

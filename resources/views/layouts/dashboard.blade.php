@@ -215,10 +215,20 @@
           @endif
 
           @if (Auth::user()->role_id == 3)
-          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
-            <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
+            <a href= "{{ route('mitra.logbook.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
+          </a>
+          <li class="menu-item {{ request()->is('mitra/jobdesc*') ? 'active' : '' }}">
+            <a href= "{{ route('mitra.jobdesc.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Jobdesc</div>
+          </a>
+          <li class="menu-item {{ request()->is('mitra/penilaian_akhir*') ? 'active' : '' }}">
+            <a href= "{{ route('mitra.penilaian_akhir.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Penilaian Akhir</div>
           </a>
           @endif
           
@@ -269,33 +279,6 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
 
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      <div class=" ">
-                        <img src="https://tse3.mm.bing.net/th?id=OIP.6V5Aay7okVakjuxm4GFuHgHaI4&pid=Api&P=0&h=180" style="width: 20px;" alt class="h-auto rounded-circle" />
-                      </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-user me-2"></i>
-                          <span class="align-middle">My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-cog me-2"></i>
-                          <span class="align-middle">Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                    </ul>
-                  </li>
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -303,6 +286,20 @@
                       <img src="{{asset('../assets')}}/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{route('mahasiswa.profil')}}">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                  </ul>
                 </li>
                 <!--/ User -->
               </ul>
