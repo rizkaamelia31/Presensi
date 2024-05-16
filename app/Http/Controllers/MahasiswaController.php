@@ -22,7 +22,10 @@ class MahasiswaController extends Controller
 
     public function logbook()
     {
-        $logbook = Logbook::where('mhs_id', Auth::user()->id)
+        $user = auth()->user();
+        $mahasiswa = $user->mahasiswa->id;
+        
+        $logbook = Logbook::where('mhs_id', $mahasiswa )
     ->orderBy('created_at', 'desc')
     ->get();
         $hariIni = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
@@ -37,8 +40,12 @@ class MahasiswaController extends Controller
             'min' => 'Deskripsi minimal 20 Karakter',
             'required' => 'Deskripsi wajib diisi'
         ]);
+        $user = auth()->user();
+        $mahasiswa = $user->mahasiswa;
+        
     
-        $mhs_id = auth()->user()->id;
+        $mhs_id = $mahasiswa->id;
+        
         $today = Carbon::now()->format('Y-m-d');
         $existingLogbook = Logbook::where('mhs_id', $mhs_id)->whereDate('created_at', $today)->first();
     

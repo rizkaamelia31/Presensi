@@ -28,11 +28,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:4'])->group(function () {
-    Route::get('/dosen/absensi', [DosenController::class, 'absensi'])->name('dosen.absensi.index');
-    Route::get('/dosen/logbook', [DosenController::class, 'logbook'])->name('dosen.logbook.index');
+    Route::get('/dosen/rekap_logbook.', [DosenController::class, 'rekap_logbook'])->name('dosen.rekap_logbook.index');
     Route::get('/dosen/laporan_akhir', [DosenController::class, 'laporan_akhir'])->name('dosen.laporan_akhir.index');
-    Route::get('/dosen/detail_logbook', [DosenController::class, 'detail_logbook'])->name('dosen.detail_logbook.index');
-    Route::get('/dosen/detail_absensi', [DosenController::class, 'detail_absensi'])->name('dosen.detail_absensi.index');
+    Route::get('/dosen/detail_rekap_logbook', [DosenController::class, 'detail_rekap_logbook'])->name('dosen.rekap_logbook.detail');
+    Route::get('/dosen/ujian_akhir', [DosenController::class, 'ujian_akhir'])->name('dosen.ujian_akhir.index');
+    Route::get('/dosen/detail_ujian_akhir', [DosenController::class, 'detail_ujian_akhir'])->name('dosen.ujian_akhir.detail');
     // Route::get('/dosen/user', [UserController::class, 'index'])->name('users.index');
     // Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
@@ -52,9 +52,12 @@ Route::middleware(['auth', 'role:1'])->group(function () {
  
 
 Route::middleware(['auth', 'role:3'])->group(function () {
-    Route::get('/mitra/logbook', [MitraController::class, 'logbook'])->name('mitra.logbook.index');
+    Route::get('/mitra/rekap_logbook', [MitraController::class, 'rekap_logbook'])->name('mitra.rekap_logbook.index');
+    Route::get('/mitra/rekap_logbook', [MitraController::class, 'rekap_logbook'])->name('mitra.rekap_logbook.detail');
     Route::get('/mitra/jobdesc', [MitraController::class, 'jobdesc'])->name('mitra.jobdesc.index');
     Route::get('/mitra/penilaian_akhir', [MitraController::class, 'penilaian_akhir'])->name('mitra.penilaian_akhir.index');
+    Route::get('/mitra/logbook', [MitraController:: class, 'logbookMitra'])->name('mitra.logbook.index');
+
 
 });
 

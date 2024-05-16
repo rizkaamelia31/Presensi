@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->timestamps();
 
-            $table->foreign('mhs_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('mhs_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
 

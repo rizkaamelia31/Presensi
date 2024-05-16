@@ -9,7 +9,6 @@ use App\Models\Role;
 use App\Models\Perusahaan;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use App\Models\Mitra;
 
 class UserController extends Controller
 {

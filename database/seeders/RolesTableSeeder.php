@@ -19,6 +19,7 @@ class RolesTableSeeder extends Seeder
             ['name' => 'Mahasiswa'],
             ['name' => 'Admin'],
             ['name' => 'Mitra'],
+            ['name' => 'Dosen'],
         ]);
     }
 }

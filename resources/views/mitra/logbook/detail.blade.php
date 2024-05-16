@@ -3,7 +3,7 @@
 <div class="container py-5">
   <div class="row">
       <div class="co-md-12">
-        <a href="{{ route('dosen.absensi.index') }}" class="btn btn-outline-primary btn-sm"> <i class="bi bi-arrow-left-short"></i>  Kembali</a>
+        <a href="{{ route('mitra.rekap_logbook.index') }}" class="btn btn-outline-primary btn-sm"> <i class="bi bi-arrow-left-short"></i>  Kembali</a>
         <h3 class="mt-4">
             Detail Presensi
         </h3>

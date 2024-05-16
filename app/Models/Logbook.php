@@ -14,8 +14,13 @@ class Logbook extends Model
     ];
 
     // Relasi dengan model User (Mahasiswa)
-    public function mahasiswa()
+    public function user()
     {
         return $this->belongsTo(User::class, 'mhs_id');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'mhs_id');
     }
 }

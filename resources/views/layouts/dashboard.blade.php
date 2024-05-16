@@ -168,25 +168,25 @@
             @endif
 
           @if (Auth::user()->role_id == 4)
-            <li class="menu-item {{ request()->is('dosen/absensi*') || request()->is('dosen/detail_absensi') ? 'active' : '' }}">
-              <a href="{{ route('dosen.absensi.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/rekap_logbook') ? 'active' : '' }}">
+              <a href="{{ route('dosen.rekap_logbook.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div data-i18n="Analytics">Rekap Absensi</div>
+                  <div data-i18n="Analytics">Rekap Logbook</div>
               </a>
           </li>
           
 
-          <li class="menu-item {{ request()->is('dosen/logbook*') || request()->is('dosen/detail_logbook')? 'active' : '' }}">
-              <a href= "{{ route('dosen.logbook.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') || request()->is('dosen/laporan_akhir')? 'active' : '' }}">
+              <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Rekap Logbook</div>
+                <div data-i18n="Analytics">Laporan Akhir</div>
               </a>
             </li>
               
-            <li class="menu-item {{ request()->is('dosen/laporan_akhir*') ? 'active' : '' }}">
-              <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('dosen/ujian_akhir*') ? 'active' : '' }}">
+              <a href= "{{ route('dosen.ujian_akhir.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Analytics">Laporan Akhir</div>
+              <div data-i18n="Analytics">Ujian Akhir</div>
             </a>
           </li>
             @endif
@@ -285,16 +285,12 @@
                     <span class="mx-2">{{ Auth::user()->name }}</span>
                     <div class="avatar avatar-online">
                       @if(Auth::user()->mahasiswa)
-                          @if(Auth::user()->mahasiswa->gambar)
-                              <img src="{{ asset('images/'. Auth::user()->mahasiswa->gambar) }}" alt="Gambar Mahasiswa" style="border-radius: 50%; width: 40px; height: 40px;">
-                          @else
-                              <!-- Jika tidak ada gambar mahasiswa, Anda dapat menampilkan gambar default atau kosong -->
-                              <img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
-                          @endif
-                      @else
-                          <!-- Jika user bukanlah seorang mahasiswa, Anda dapat menampilkan gambar default atau kosong -->
-                          <img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
-                      @endif
+                      <img src="{{ asset('images/'. Auth::user()->mahasiswa->gambar) }}" alt="Gambar Mahasiswa" style="border-radius: 50%; width: 40px; height: 40px;">
+                  @elseif ( Auth::user()->dosen)
+                  <img src="{{ asset('images/'. Auth::user()->dosen->gambar) }}" alt="{{Auth::user()->dosen->gambar}}" style="border-radius: 50%; width: 40px; height: 40px;">
+                  @else
+                      <img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
+                  @endif
                   </div>
                   
                   </a>
