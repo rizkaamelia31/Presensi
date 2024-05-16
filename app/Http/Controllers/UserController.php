@@ -59,21 +59,25 @@ class UserController extends Controller
 
         // Handle image upload if a file is uploaded
         if ($request->hasFile('gambar_dosen') && $request->role_id == 4) {
-            $gambar = $request->file('gambar_dosen');
-            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
-            $path = $gambar->storeAs('public/gambar', $nama_gambar);
+            $image = $request->file('gambar_dosen');
+            $path = 'images';
+            $namaGambar = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($path, $namaGambar);
+            $gambarDosen = $namaGambar;
 
             $dosen = new Dosen();
             $dosen->user_id = $user->id;
             $dosen->nidn = $request->nidn;
-            $dosen->gambar = $path;
+            $dosen->gambar = $gambarDosen;
             $dosen->save();
         }
 
         if ($request->hasFile('gambar_mahasiswa') && $request->role_id == 1) {
-            $gambar = $request->file('gambar_mahasiswa');
-            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
-            $path = $gambar->storeAs('public/gambar', $nama_gambar);
+            $image = $request->file('gambar_mahasiswa');
+            $path = 'images';
+            $namaGambar = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($path, $namaGambar);
+            $gambarMahasiswa = $namaGambar;
 
             $mahasiswa = new Mahasiswa();
             $mahasiswa->user_id = $user->id;
@@ -82,7 +86,7 @@ class UserController extends Controller
             $mahasiswa->perusahaan_id = $request->perusahaan_id_mhs;
             $mahasiswa->nama_supervisor = $request->nama_supervisor;
             $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
-            $mahasiswa->gambar = $path;
+            $mahasiswa->gambar = $gambarMahasiswa;
             $mahasiswa->save();
         }
 

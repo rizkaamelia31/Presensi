@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Logbook;
 use App\Models\Mahasiswa;
 use App\Models\Perusahaan;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
@@ -32,7 +32,7 @@ class MahasiswaController extends Controller
     {
         // Validasi data dari request
         $validatedData = $request->validate([
-            'deskripsi' => 'required|string|min:20|max:255',
+            'deskripsi' => 'required|string|min:20',
         ],[
             'min' => 'Deskripsi minimal 20 Karakter',
             'required' => 'Deskripsi wajib diisi'
@@ -101,7 +101,9 @@ class MahasiswaController extends Controller
         return view('mahasiswa.profil', compact('mahasiswa', 'perusahaanList'));
     }
 
-    public function updateProfil(Request $request)
+  
+
+public function updateProfil(Request $request)
 {
     $request->validate([
         'name' => 'required|string|max:255',
@@ -110,9 +112,9 @@ class MahasiswaController extends Controller
         'tanggal_lahir' => 'required|date',
         'magang_batch' => 'required|string',
         'perusahaan_id' => 'required|string',
-        'gambar' => 'nullable',
         'nama_supervisor' => 'required|string',
         'no_hp_supervisor' => 'required|string',
+        'gambar' => 'nullable|image|max:2048', 
     ]);
 
     $user = Auth::user();
@@ -121,7 +123,6 @@ class MahasiswaController extends Controller
     $userUpdates = [];
     $mahasiswaUpdates = [];
 
-    // Update data pada tabel Users jika ada perubahan pada name, email, atau password
     if ($request->filled('name')) {
         $userUpdates['name'] = $request->input('name');
     }
@@ -134,20 +135,21 @@ class MahasiswaController extends Controller
         $userUpdates['password'] = bcrypt($request->input('password'));
     }
 
-    // Update data pada tabel Mahasiswa
     $mahasiswaUpdates = $request->except(['_token', '_method', 'name', 'email', 'password']);
 
     if ($request->hasFile('gambar')) {
-        // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
         if ($mahasiswa->gambar && Storage::exists($mahasiswa->gambar)) {
             Storage::delete($mahasiswa->gambar);
         }
     
-        // Simpan gambar yang baru di storage dan update path gambar di database
-        $gambarPath = $request->file('gambar')->store('public/gambar-mahasiswa');
-        $mahasiswaUpdates['gambar'] = $gambarPath;
+        $image = $request->file('gambar');
+        $path = 'images';
+        $namaGambar = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $image->move($path, $namaGambar);
+
+        $mahasiswaUpdates['gambar'] = $namaGambar;
     }
-    // Update data pada tabel Users jika ada perubahan pada name, email, atau password
+
     if (!empty($userUpdates)) {
         $user->update($userUpdates);
     }
