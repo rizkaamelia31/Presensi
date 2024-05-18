@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mhs_id');
             $table->text('deskripsi');
+            $table->string('lampiran'); 
+            $table->string('status')->default('Menunggu Persetujuan'); 
             $table->timestamps();
-
             $table->foreign('mhs_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }

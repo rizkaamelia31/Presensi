@@ -11,6 +11,8 @@ class Logbook extends Model
     protected $fillable = [
         'mhs_id',
         'deskripsi',
+        'lampiran',
+        'status',
     ];
 
     // Relasi dengan model User (Mahasiswa)

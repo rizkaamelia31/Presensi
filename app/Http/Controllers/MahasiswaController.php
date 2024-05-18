@@ -32,36 +32,51 @@ class MahasiswaController extends Controller
         return view("mahasiswa.logbook.index",compact('logbook','hariIni'));
     }
     public function logbookStore(Request $request)
-    {
-        // Validasi data dari request
-        $validatedData = $request->validate([
-            'deskripsi' => 'required|string|min:20',
-        ],[
-            'min' => 'Deskripsi minimal 20 Karakter',
-            'required' => 'Deskripsi wajib diisi'
-        ]);
-        $user = auth()->user();
-        $mahasiswa = $user->mahasiswa;
-        
-    
-        $mhs_id = $mahasiswa->id;
-        
-        $today = Carbon::now()->format('Y-m-d');
-        $existingLogbook = Logbook::where('mhs_id', $mhs_id)->whereDate('created_at', $today)->first();
-    
-        if ($existingLogbook) {
-            return redirect()->back()->with('error', 'Anda hanya dapat membuat satu logbook dalam satu hari.');
-        }
+{
+    // Validasi data dari request
+    $validatedData = $request->validate([
+        'deskripsi' => 'required|string|min:20',
+        'lampiran' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx|max:2048',
+    ],[
+        'min' => 'Deskripsi minimal 20 Karakter',
+        'required' => 'Deskripsi wajib diisi',
+        'file' => 'Lampiran harus berupa file',
+        'mimes' => 'Lampiran harus berupa file dengan tipe: jpeg, png, jpg, gif, svg, pdf, doc, docx, xls, xlsx',
+        'max' => 'Lampiran maksimal 2MB'
+    ]);
 
-        $logbook = new Logbook([
-            'mhs_id' => $mhs_id,
-            'deskripsi' => $validatedData['deskripsi'],
-        ]);
-    
-        $logbook->save();
-    
-        return redirect()->route('mahasiswa.logbook.index')->with('success', 'Logbook berhasil disimpan.');
+    $user = auth()->user();
+    $mahasiswa = $user->mahasiswa;
+
+    $mhs_id = $mahasiswa->id;
+
+    $today = Carbon::now()->format('Y-m-d');
+    $existingLogbook = Logbook::where('mhs_id', $mhs_id)->whereDate('created_at', $today)->first();
+
+    if ($existingLogbook) {
+        return redirect()->back()->with('error', 'Anda hanya dapat membuat satu logbook dalam satu hari.');
     }
+
+    $logbook = new Logbook([
+        'mhs_id' => $mhs_id,
+        'deskripsi' => $validatedData['deskripsi'],
+    ]);
+
+    if ($request->hasFile('lampiran')) {
+        $image = $request->file('lampiran');
+        $path = 'lampiran';
+        $namaGambar = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $image->move($path, $namaGambar);
+        $logbook->lampiran = $namaGambar;
+
+    }
+
+    $logbook->save();
+
+    return redirect()->route('mahasiswa.logbook.index')->with('success', 'Logbook berhasil disimpan.');
+}
+
+
 
     public function laporan_akhir()
     {
