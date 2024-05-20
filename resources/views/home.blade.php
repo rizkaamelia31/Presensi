@@ -82,8 +82,16 @@
     <div class="col-md-3">
       <div class="card text-center mb-4">
         <div class="card-body">
-          <h5 class="card-title">Total Logbook</h5>
-          <p class="card-text">{{$logbook}} Logbook</p>
+          <h5 class="card-title">Total Logbook Yang Telah Disetujui</h5>
+          <p class="card-text">{{$logbookCountApprove}} Logbook</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Total Logbook Yang Belum Disetujui</h5>
+          <p class="card-text">{{$logbooksPendingApproval}} Logbook</p>
         </div>
       </div>
     </div>

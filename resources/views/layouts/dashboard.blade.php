@@ -183,10 +183,10 @@
               </a>
             </li>
               
-            <li class="menu-item {{ request()->is('dosen/ujian_akhir*') ? 'active' : '' }}">
-              <a href= "{{ route('dosen.ujian_akhir.index') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('dosen/penilaian_akhir*') ? 'active' : '' }}">
+              <a href= "{{ route('dosen.penilaian_akhir.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Analytics">Ujian Akhir</div>
+              <div data-i18n="Analytics">Penilaian Akhir</div>
             </a>
           </li>
             @endif

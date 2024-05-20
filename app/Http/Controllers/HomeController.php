@@ -23,7 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $logbook = Logbook::count();
-        return view('home', compact('logbook'));
+        $user = auth()->user();
+        $logbookCountApprove = 0;
+        $logbooksPendingApproval = 0;
+
+        if ($user->role_id === 1) {
+            $mahasiswaId = $user->mahasiswa->id;
+            $logbookCountApprove = Logbook::where('mhs_id', $mahasiswaId)->where('status', 'Disetujui')->count();
+            $logbooksPendingApproval = Logbook::where('mhs_id', $mahasiswaId)->where('status', 'Menunggu Persetujuan')->count();
+        }
+
+        return view('home', compact('logbookCountApprove', 'logbooksPendingApproval'));
     }
 }

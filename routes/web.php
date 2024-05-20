@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MitraController;
 
+use App\Http\Controllers\PenilaianAkhirController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +32,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/dosen/rekap_logbook.', [DosenController::class, 'rekap_logbook'])->name('dosen.rekap_logbook.index');
     Route::get('/dosen/laporan_akhir', [DosenController::class, 'laporan_akhir'])->name('dosen.laporan_akhir.index');
-    Route::get('/dosen/detail_rekap_logbook', [DosenController::class, 'detail_rekap_logbook'])->name('dosen.rekap_logbook.detail');
-    Route::get('/dosen/ujian_akhir', [DosenController::class, 'ujian_akhir'])->name('dosen.ujian_akhir.index');
-    Route::get('/dosen/detail_ujian_akhir', [DosenController::class, 'detail_ujian_akhir'])->name('dosen.ujian_akhir.detail');
+    Route::get('/dosen/detail_rekap_logbook/{id}', [DosenController::class, 'detail_rekap_logbook'])->name('dosen.rekap_logbook.detail');
+
+    Route::get('/dosen/penilaian_akhir', [DosenController::class, 'penilaian_akhir'])->name('dosen.penilaian_akhir.index');
+    Route::get('/dosen/detail_penilaian_akhir', [DosenController::class, 'detail_penilaian_akhir'])->name('dosen.penilaian_akhir.detail');
     // Route::get('/dosen/user', [UserController::class, 'index'])->name('users.index');
     // Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
@@ -57,17 +60,23 @@ Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/mitra/jobdesc', [MitraController::class, 'jobdesc'])->name('mitra.jobdesc.index');
     Route::get('/mitra/penilaian_akhir', [MitraController::class, 'penilaian_akhir'])->name('mitra.penilaian_akhir.index');
     Route::get('/mitra/logbook', [MitraController:: class, 'logbookMitra'])->name('mitra.logbook.index');
+    Route::put('/mitra/logbook/confirm/{id}', [MitraController::class, 'confirm'])->name('logbook.confirm');
+
 
 
 });
 
 
 Route::middleware(['auth', 'role:2'])->group(function () {
-    Route::get('/admin/beranda', [AdminController::class, 'beranda'])->name('admin.beranda.index');
+    // Route::get('/admin/beranda', [AdminController::class, 'beranda'])->name('admin.beranda.index');
     Route::resource('users', UserController::class);
 
 
 });
+
+
+// Route::get('/penilaian_akhir/create', [PenilaianAkhirController::class, 'create'])->name('penilaian_akhir.create');
+// Route::post('/penilaian_akhir', [PenilaianAkhirController::class, 'store'])->name('penilaian_akhir.store');
 
 
 Auth::routes();
