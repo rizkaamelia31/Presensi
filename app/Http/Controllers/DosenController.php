@@ -18,13 +18,17 @@ class DosenController extends Controller
         return view('dosen.rekap_logbook.index',compact('mahasiswa','hariIni') );
     }
     
-
-
-    public function laporan_akhir()
+    public function LaporanAkhir()
     {
-        
-        return view('dosen.laporan_akhir.index');
+        $laporanAkhir = Logbook::whereHas('mahasiswa', function ($query) {
+            $query->whereNotNull('laporan_akhir');
+        })->with('mahasiswa.user')->get();
+
+        return view('dosen.laporan_akhir.index', compact('laporanAkhir'));
     }
+
+    
+    
     public function penilaian_akhir()
     {
         
@@ -39,5 +43,6 @@ class DosenController extends Controller
         return view('dosen.rekap_logbook.detail', compact('logbook','mahasiswa'));
     }
     
-    
+
+
 }

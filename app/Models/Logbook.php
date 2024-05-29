@@ -25,4 +25,7 @@ class Logbook extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'mhs_id');
     }
+
 }
+
+

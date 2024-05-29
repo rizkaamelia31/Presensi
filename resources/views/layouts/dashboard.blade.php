@@ -225,10 +225,16 @@
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>
           </a>
-          <li class="menu-item {{ request()->is('mitra/penilaian_akhir*') ? 'active' : '' }}">
-            <a href= "{{ route('mitra.penilaian_akhir.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('mitra/kriteria-penilaian*') ? 'active' : '' }}">
+            <a href= "{{ route('kriteria-penilaian.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Penilaian Akhir</div>
+            <div data-i18n="Analytics">Kriteria Penilaian</div>
+            </li>
+          <li class="menu-item {{ request()->is('mitra/penilaian*') ? 'active' : '' }}">
+            <a href= "{{ route('penilaian.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics"> Penilaian</div>
+            </li>
           </a>
           @endif
           
