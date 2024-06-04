@@ -1,6 +1,12 @@
-<!-- resources/views/mitra/logbook/index.blade.php -->
 @extends('layouts.dashboard')
 @section('content')
+<style>
+  .logbook-description {
+    white-space: pre-wrap; /* Menjaga whitespace */
+    text-align: left;      /* Merapikan teks ke kiri */
+    word-wrap: break-word; /* Memastikan kata tidak melampaui batas */
+  }
+</style>
 <div class="container py-5">
   <div class="row vh-100">
     <div class="col-md-12">
@@ -41,7 +47,7 @@
                     <td><strong>{{ $loop->iteration }}</strong></td>
                     <td><img src="{{ asset('images/' . $logbook->mahasiswa->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
                     <td><p>{{ $logbook->mahasiswa->user->name }}</p></td>
-                    <td><p>{{ $logbook->deskripsi }}</p></td>
+                    <td><p class="logbook-description">{{ $logbook->deskripsi }}</p></td>
                     <td><p>{{ $logbook->created_at }}</p></td>
                     <td><p>{{ $logbook->status }}</p></td>
                     <td>

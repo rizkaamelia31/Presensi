@@ -43,6 +43,7 @@ class DosenController extends Controller
         return view('dosen.rekap_logbook.detail', compact('logbook','mahasiswa'));
     }
     
+   
 
 
 }

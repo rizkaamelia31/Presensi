@@ -17,6 +17,7 @@ class Mahasiswa extends Model
         'gambar',
         'nama_supervisor',
         'no_hp_supervisor',
+        'dosen_id',
     ];
     
     public function perusahaan()
@@ -28,6 +29,17 @@ class Mahasiswa extends Model
 {
     return $this->belongsTo(User::class, 'user_id');
 }
+public function dosen()
+{
+    return $this->belongsTo(User::class, 'dosen_id');
+}
+
+
+
+public function penilaians()
+    {
+        return $this->hasMany(Penilaian::class, 'mhs_id');
+    }
 
 
 }

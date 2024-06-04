@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -18,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="{{asset('../assets')}}/"
+  data-assets-path="{{ asset('../assets') }}/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -33,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('../assets')}}/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('../assets') }}/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,27 +43,27 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{asset('../assets')}}/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/fonts/boxicons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{asset('../assets')}}/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('../assets')}}/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{asset('../assets')}}/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{asset('../assets')}}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="{{asset('../assets')}}/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="{{asset('../assets')}}/vendor/js/helpers.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{asset('../assets')}}/js/config.js"></script>
+    <script src="{{ asset('../assets') }}/js/config.js"></script>
   </head>
 <style>
   @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
@@ -159,40 +158,45 @@
                 <div data-i18n="Analytics">Buat Akun</div>
               </a>
             </li>
+            <li class="menu-item {{ request()->is('mitra/kriteria-penilaian*') ? 'active' : '' }}">
+              <a href= "{{ route('kriteria-penilaian.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Kriteria Penilaian</div>
+              </a>
+            </li>
             <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
               <a href="/home" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Setting</div>
               </a>
             </li>
-            @endif
+@endif
 
           @if (Auth::user()->role_id == 4)
-            <li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/rekap_logbook') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/rekap_logbook') ? 'active' : '' }}">
               <a href="{{ route('dosen.rekap_logbook.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Rekap Logbook</div>
               </a>
           </li>
-          
-
-          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') || request()->is('dosen/laporan_akhir')? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('dosen/laporan_akhir*') || request()->is('dosen/laporan_akhir') ? 'active' : '' }}">
               <a href= "{{ route('dosen.laporan_akhir.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Laporan Akhir</div>
               </a>
             </li>
-              
-            <li class="menu-item {{ request()->is('dosen/penilaian_akhir*') ? 'active' : '' }}">
-              <a href= "{{ route('dosen.penilaian_akhir.index') }}" class="menu-link">
+            
+            <li class="menu-item {{ request()->is('dosen/riwayat*') ? 'active' : '' }}">
+              <a href= "{{ route('riwayat.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Analytics">Penilaian Akhir</div>
-            </a>
-          </li>
-            @endif
+              <div data-i18n="Analytics">Riwayat</div>
+              </a>
+            </li>
+              
+@endif
 
           @if (Auth::User()->role_id == 1)
-            <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
               <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Logbook</div>
@@ -205,17 +209,11 @@
           </a>
         </li>
       
-      <li class="menu-item {{ request()->is('mahasiswa/penilaian_akhir*') ? 'active' : '' }}">
-        <a href= "{{ route('mahasiswa.penilaian_akhir.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">Penilaian Akhir</div>
-      </a>
     </li>
-    
-          @endif
+@endif
 
           @if (Auth::user()->role_id == 3)
-          <li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
             <a href= "{{ route('mitra.logbook.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
@@ -225,18 +223,18 @@
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>
           </a>
-          <li class="menu-item {{ request()->is('mitra/kriteria-penilaian*') ? 'active' : '' }}">
-            <a href= "{{ route('kriteria-penilaian.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Kriteria Penilaian</div>
-            </li>
-          <li class="menu-item {{ request()->is('mitra/penilaian*') ? 'active' : '' }}">
-            <a href= "{{ route('penilaian.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics"> Penilaian</div>
-            </li>
-          </a>
-          @endif
+          
+         
+@endif
+
+@if (Auth::user()->role_id == 4 || Auth::user()->role_id == 3)
+<li class="menu-item {{ request()->is('mitra/penilaian*') ? 'active' : '' }}">
+  <a href= "{{ route('penilaian.index') }}" class="menu-link">
+  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+  <div data-i18n="Analytics"> Penilaian</div>
+</a>
+  </li>
+@endif
           
             
             <li class="menu-item fixed-bottom ">
@@ -290,19 +288,19 @@
                   <a class="nav-link dropdown-toggle hide-arrow d-flex align-items-center" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <span class="mx-2">{{ Auth::user()->name }}</span>
                     <div class="avatar avatar-online">
-                      @if(Auth::user()->mahasiswa)
-                      <img src="{{ asset('images/'. Auth::user()->mahasiswa->gambar) }}" alt="Gambar Mahasiswa" style="border-radius: 50%; width: 40px; height: 40px;">
-                  @elseif ( Auth::user()->dosen)
-                  <img src="{{ asset('images/'. Auth::user()->dosen->gambar) }}" alt="{{Auth::user()->dosen->gambar}}" style="border-radius: 50%; width: 40px; height: 40px;">
-                  @else
-                      <img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
-                  @endif
+                      @if (Auth::user()->mahasiswa)
+<img src="{{ asset('images/' . Auth::user()->mahasiswa->gambar) }}" alt="Gambar Mahasiswa" style="border-radius: 50%; width: 40px; height: 40px;">
+@elseif (Auth::user()->dosen)
+<img src="{{ asset('images/' . Auth::user()->dosen->gambar) }}" alt="{{ Auth::user()->dosen->gambar }}" style="border-radius: 50%; width: 40px; height: 40px;">
+@else
+<img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
+@endif
                   </div>
                   
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                       <li>
-                          <a class="dropdown-item" href="{{route('mahasiswa.profil')}}">
+                          <a class="dropdown-item" href="{{ route('mahasiswa.profil') }}">
                               <i class="bx bx-user me-2"></i>
                               <span class="align-middle">My Profile</span>
                           </a>
@@ -341,22 +339,22 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{asset('../assets')}}/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{asset('../assets')}}/vendor/libs/popper/popper.js"></script>
-    <script src="{{asset('../assets')}}/vendor/js/bootstrap.js"></script>
-    <script src="{{asset('../assets')}}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/libs/jquery/jquery.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/libs/popper/popper.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/js/bootstrap.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="{{asset('../assets')}}/vendor/js/menu.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{asset('../assets')}}/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('../assets') }}/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="{{asset('../assets')}}/js/main.js"></script>
+    <script src="{{ asset('../assets') }}/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="{{asset('../assets')}}/js/dashboards-analytics.js"></script>
+    <script src="{{ asset('../assets') }}/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

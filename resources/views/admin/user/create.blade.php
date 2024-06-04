@@ -48,6 +48,14 @@
                 <option value="{{ $perusahaanItem->id }}">{{ $perusahaanItem->nama_perusahaan }}</option>
                 @endforeach
             </select>
+            <label for="dosen_id">Dosen:</label>
+            <select class="form-control" id="dosen_id" name="dosen_id">
+                <option value="">Pilih Dosen</option>
+                @foreach ($dosen as $dosenItem)
+                
+                <option value="{{ $dosenItem->id }}">{{ $dosenItem->user->name }}</option>
+                @endforeach
+            </select>
             <label for="gambar_mahasiswa">Gambar Mahasiswa:</label>
             <input type="file" class="form-control" id="gambar_mahasiswa" name="gambar_mahasiswa">
         </div>

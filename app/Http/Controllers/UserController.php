@@ -28,12 +28,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
 
         $roles = Role::all();
         $perusahaan = Perusahaan::all();
-        return view('admin.user.create',compact('roles','perusahaan'));
+        $dosen = Dosen::all();
+        return view('admin.user.create',compact('roles','perusahaan','dosen'));
     }
 
     /**
@@ -85,6 +86,7 @@ class UserController extends Controller
             $mahasiswa->perusahaan_id = $request->perusahaan_id_mhs;
             $mahasiswa->nama_supervisor = $request->nama_supervisor;
             $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
+            $mahasiswa->dosen_id = $request->dosen_id;
             $mahasiswa->gambar = $gambarMahasiswa;
             $mahasiswa->save();
         }
@@ -170,6 +172,7 @@ class UserController extends Controller
             $mahasiswa->perusahaan_id = $request->perusahaan_id_mhs;
             $mahasiswa->nama_supervisor = $request->nama_supervisor;
             $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
+            $mahasiswa->dosen_id = $request->dosen_id;
             $mahasiswa->gambar = $path;
             $mahasiswa->save();
         }

@@ -14,4 +14,11 @@ class Dosen extends Model
         'nidn',
         'gambar',
     ];
+
+    
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
 }

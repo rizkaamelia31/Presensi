@@ -14,4 +14,14 @@ class Perusahaan extends Model
         'nama_perusahaan',
         'alamat',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function mahasiswas()
+    {
+        return $this->hasMany(Mahasiswa::class);
+    }
 }

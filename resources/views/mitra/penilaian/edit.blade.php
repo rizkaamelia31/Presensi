@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <div class="container">
-    <h1>Edit Penilaian</h1>
+    <h2 class="fw-semibold my-5 text-center ">Edit Penilaian: {{ $mahasiswa->user->name }}</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,34 +15,23 @@
         </div>
     @endif
 
-    <form action="{{ route('penilaian.update', $penilaian->id) }}" method="POST">
+    <form action="{{ route('penilaian.update', $mahasiswa->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <div class="form-group">
-            <label for="mhs_id">Mahasiswa:</label>
-            <select name="mhs_id" class="form-control">
-                @foreach ($mahasiswa as $mhs)
-                    <option value="{{ $mhs->id }}" {{ $penilaian->mhs_id == $mhs->id ? 'selected' : '' }}>{{ $mhs->nama }}</option>
-                @endforeach
-            </select>
+        <div class="row">
+            @foreach ($penilaian as $nilai)
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="mb-1">{{ $nilai->kriteriaPenilaian->nama_kriteria }} ({{ $nilai->kriteriaPenilaian->bobot }}%)</label>
+                        <input type="number" name="nilai_{{ $nilai->id }}" class="form-control" min="0" max="100" value="{{ number_format($nilai->nilai , 0, '', '') }}">
+                    </div>
+                </div>
+            @endforeach
         </div>
 
-        <div class="form-group">
-            <label for="kriteria_penilaian_id">Kriteria Penilaian:</label>
-            <select name="kriteria_penilaian_id" class="form-control">
-                @foreach ($kriteriaPenilaian as $kriteria)
-                    <option value="{{ $kriteria->id }}" {{ $penilaian->kriteria_penilaian_id == $kriteria->id ? 'selected' : '' }}>{{ $kriteria->nama_kriteria }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="nilai">Nilai:</label>
-            <input type="number" name="nilai" class="form-control" min="0" max="100" step="0.01" value="{{ $penilaian->nilai }}">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <a class="btn btn-secondary" href="{{ route('penilaian.index') }}">Kembali</a>
     </form>
 </div>
 @endsection
