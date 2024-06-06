@@ -214,8 +214,8 @@
             <div data-i18n="Analytics">Nilai Magang</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->is('mahasiswa/jobdesc') ? 'active' : '' }}">
-            <a href= "" class="menu-link">
+          <li class="menu-item {{ request()->is('job') ? 'active' : '' }}">
+            <a href= "{{route('jobdescs.index')}}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>
             </a>

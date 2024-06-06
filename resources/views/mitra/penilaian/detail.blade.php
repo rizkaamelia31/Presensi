@@ -87,7 +87,8 @@
         @php
             $totalNilaiAkhir = ($totalInternal * 0.3) + ($totalExternal * 0.7); // Menghitung total nilai akhir dengan bobot 30% internal dan 70% eksternal
         @endphp
-        <p>Total Nilai Akhir Mahasiswa = {{ number_format($totalNilaiAkhir, 0, '', '') }}</p> {{-- Total nilai akhir di-format tanpa desimal --}}
+        <p class="text-danger text-small m-0"*>Nilai internal 30% + Eksternal 70%</p>
+        <h3 class="fw-semibold">Total Nilai Akhir Mahasiswa = {{ $totalNilaiAkhir }}</h3> {{-- Total nilai akhir di-format tanpa desimal --}}
     </div>
     @endif
 

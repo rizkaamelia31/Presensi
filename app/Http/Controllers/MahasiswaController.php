@@ -95,27 +95,33 @@ class MahasiswaController extends Controller
     }
 
     public function uploadLaporan(Request $request)
-    {
-       
-        $request->validate([
-            'laporan_akhir' => 'required', 
-        ]);
+{
+    $request->validate([
+        'laporan_akhir' => 'required|mimes:pdf|max:2048', 
+    ]);
 
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
-        if (!$mahasiswa) {
-            return redirect()->back()->with('error', 'Mahasiswa not found');
-        }
+    $mahasiswa = Mahasiswa::where('user_id', auth()->user()->id)->first();
+    if (!$mahasiswa) {
+        return redirect()->back()->with('error', 'Mahasiswa not found');
+    }
 
+    if ($request->hasFile('laporan_akhir')) {
         $file = $request->file('laporan_akhir');
-        $path = $file->storeAs('laporan', $file->getClientOriginalName());
-
+        $path = 'laporan_akhir';
+        $namaFile = date('YmdHis') . "." . $file->getClientOriginalExtension();
+        $file->move(public_path($path), $namaFile);
+        
         $laporanAkhir = new LaporanAkhir();
         $laporanAkhir->mhs_id = $mahasiswa->id;
-        $laporanAkhir->laporan_akhir = $path;
+        $laporanAkhir->laporan_akhir = $path . '/' . $namaFile;
         $laporanAkhir->save();
 
         return redirect()->back()->with('success', 'Laporan berhasil diupload');
+    } else {
+        return redirect()->back()->with('error', 'File tidak ditemukan');
     }
+}
+
 
     public function profil()
     {
@@ -185,28 +191,35 @@ public function updateProfil(Request $request)
     return redirect()->route('mahasiswa.profil')->with('success', 'Profil berhasil diperbarui.');
 }
 
-public function nilaiMagang(){
+public function nilaiMagang()
+{
+    $user = Auth::id();
+    $mahasiswa = Mahasiswa::where('user_id', $user)->first();
 
-        $user = Auth::id();
-        $mahasiswaId = Mahasiswa::where('user_id', $user)->first()->id;
+    if (!$mahasiswa) {
+        return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan');
+    }
 
-        $penilaians = Penilaian::where('mhs_id', $mahasiswaId)->get();
-        $totalEksternal = 0;
-        $totalInternal = 0;
+    $mahasiswaId = $mahasiswa->id;
+    $penilaians = Penilaian::where('mhs_id', $mahasiswaId)->with('kriteriaPenilaian')->get();
+    $totalEksternal = 0;
+    $totalInternal = 0;
 
-        // Menghitung total nilai eksternal dan internal
-        foreach ($penilaians as $penilaian) {
-            if ($penilaian->kriteriaPenilaian->jenis === 'eksternal') {
-                $totalEksternal += $penilaian->nilai;
-            } elseif ($penilaian->kriteriaPenilaian->jenis === 'internal') {
-                $totalInternal += $penilaian->nilai;
-            }
+    // Menghitung total nilai eksternal dan internal
+    foreach ($penilaians as $penilaian) {
+        if ($penilaian->kriteriaPenilaian->jenis === 'eksternal') {
+            $totalEksternal += $penilaian->nilai * $penilaian->kriteriaPenilaian->bobot / 100;
+            
+        } elseif ($penilaian->kriteriaPenilaian->jenis === 'internal') {
+            $totalInternal += $penilaian->nilai * $penilaian->kriteriaPenilaian->bobot / 100;
         }
+    }
 
-        // Menghitung total nilai akhir dengan bobot 70% eksternal dan 30% internal
-        $totalNilaiAkhir = ($totalEksternal * 0.7) + ($totalInternal * 0.3);
+    // Menghitung total nilai akhir dengan bobot 70% eksternal dan 30% internal
+    $totalNilaiAkhir = ($totalEksternal * 0.7) + ($totalInternal * 0.3);
 
-        return view('mahasiswa.nilai_magang.index', compact('penilaians', 'totalNilaiAkhir'));
+    return view('mahasiswa.nilai_magang.index', compact('penilaians', 'totalNilaiAkhir'));
 }
+
 
 }

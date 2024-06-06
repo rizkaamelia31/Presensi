@@ -9,28 +9,22 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Foto</th>
-                  <th>NIM</th>
                   <th>Nama Mahasiswa</th>
                   <th>Laporan Akhir</th>
+                  <th>Tanggal</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                @foreach($mahasiswa as $index => $mhs)
+                @foreach ($laporanAkhir as $laporan)
                 <tr>
-                  <td><strong>{{ $loop->iteration }}</strong></td>
-                  <td>
-                    <img src="{{ asset('images/' . $mhs->user->foto) }}" class="rounded-circle" width="50" height="50" style="object-fit:cover" alt="Foto Mahasiswa">
-                  </td>
-                  <td><p>{{ $mhs->nim }}</p></td>
-                  <td><p>{{ $mhs->user->name }}</p></td>
-                  <td>
-                    <a href="{{ asset('pdf/' . $mhs->laporan_akhir) }}">
-                      <img src="{{ asset('assets/img/pdf.png') }}" alt="PDF Icon">
-                    </a>
-                  </td>
+                  <td>{{$loop->iteration}}</td>
+                    <td>{{ $laporan->mahasiswa->user->name }}</td>
+                    <td><a href="{{ asset($laporan->laporan_akhir) }}" target="_blank">Lihat PDF</a></td>
+                    <td>{{ \Carbon\Carbon::parse($laporan->created_at)->translatedFormat('l, d F Y H:i') }}</td>
+
                 </tr>
-                @endforeach
+            @endforeach
+            
               </tbody>
             </table>
           </div>

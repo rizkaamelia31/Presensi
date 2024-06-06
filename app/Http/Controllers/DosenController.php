@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\LaporanAkhir;
 use App\Models\Logbook;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
@@ -31,13 +32,17 @@ class DosenController extends Controller
     
     
     public function LaporanAkhir()
-    {
-        $laporanAkhir = Logbook::whereHas('mahasiswa', function ($query) {
-            $query->whereNotNull('laporan_akhir');
-        })->with('mahasiswa.user')->get();
+{
+    $dosenId = auth()->user()->dosen->id;
 
-        return view('dosen.laporan_akhir.index', compact('laporanAkhir'));
-    }
+    $laporanAkhir = LaporanAkhir::whereHas('mahasiswa', function ($query) use ($dosenId) {
+        $query->where('dosen_id', $dosenId)
+              ->whereNotNull('laporan_akhir');
+    })->with('mahasiswa.user')->get();
+
+    return view('dosen.laporan_akhir.index', compact('laporanAkhir'));
+}
+
 
     
     

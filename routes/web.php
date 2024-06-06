@@ -45,7 +45,7 @@ Route::delete('job/{id}', [JobDescController::class, 'destroy'])->name('jobdescs
 
 Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/dosen/rekap_logbook', [DosenController::class, 'rekap_logbook'])->name('dosen.rekap_logbook.index');
-    Route::get('/dosen/laporan_akhir', [DosenController::class, 'laporan_akhir'])->name('dosen.laporan_akhir.index');
+    Route::get('/dosen/laporan_akhir', [DosenController::class, 'laporanAkhir'])->name('dosen.laporan_akhir.index');
     Route::get('/dosen/detail_rekap_logbook/{id}', [DosenController::class, 'detail_rekap_logbook'])->name('dosen.rekap_logbook.detail');
     Route::get('/dosen/penilaian_akhir', [DosenController::class, 'penilaian_akhir'])->name('dosen.penilaian_akhir.index');
     Route::get('/dosen/detail_penilaian_akhir', [DosenController::class, 'detail_penilaian_akhir'])->name('dosen.penilaian_akhir.detail');

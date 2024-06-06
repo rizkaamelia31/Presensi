@@ -78,7 +78,7 @@ class PenilaianController extends Controller
             }
 
             // Menghitung nilai bobot
-            $nilaiBobot = $value * ($kriteria->bobot / 100); // Mengalikan nilai dengan bobot
+            $nilaiBobot = $value ; // Mengalikan nilai dengan bobot
 
             // Menyimpan penilaian
             Penilaian::create([
