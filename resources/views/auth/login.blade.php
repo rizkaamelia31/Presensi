@@ -137,6 +137,7 @@
               </div>
               <!-- /Logo -->
               <p class="mb-2 text-center ">Silahkan Masuk Menggunakan Akun Anda 👋</p>
+            
 
               <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                 @csrf

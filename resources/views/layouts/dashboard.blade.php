@@ -60,6 +60,7 @@
 
     <!-- Helpers -->
     <script src="{{ asset('../assets') }}/vendor/js/helpers.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -152,7 +153,7 @@
             </li>
 
             @if (Auth::user()->role_id == 2)
-            <li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
               <a href="/users" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Buat Akun</div>
@@ -173,7 +174,7 @@
 @endif
 
           @if (Auth::user()->role_id == 4)
-<li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/rekap_logbook') ? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/rekap_logbook') ? 'active' : '' }}">
               <a href="{{ route('dosen.rekap_logbook.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Rekap Logbook</div>
@@ -184,15 +185,14 @@
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Laporan Akhir</div>
               </a>
-            </li>
+          </li>
             
-            <li class="menu-item {{ request()->is('dosen/riwayat*') ? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('dosen/riwayat*') ? 'active' : '' }}">
               <a href= "{{ route('riwayat.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Riwayat</div>
               </a>
-            </li>
-              
+          </li>
 @endif
 
           @if (Auth::User()->role_id == 1)
@@ -200,16 +200,26 @@
               <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Logbook</div>
-            </a>
+              </a>
           </li>
           <li class="menu-item {{ request()->is('mahasiswa/laporan_akhir*') ? 'active' : '' }}">
             <a href= "{{ route('mahasiswa.laporan_akhir.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Laporan Akhir</div>
-          </a>
-        </li>
-      
-    </li>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('mahasiswa/nilaimagang') ? 'active' : '' }}">
+            <a href= "{{ route('mahasiswa.nilai_magang.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Nilai Magang</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('mahasiswa/jobdesc') ? 'active' : '' }}">
+            <a href= "" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Jobdesc</div>
+            </a>
+          </li>
 @endif
 
           @if (Auth::user()->role_id == 3)
@@ -218,13 +228,12 @@
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
           </a>
-          <li class="menu-item {{ request()->is('mitra/jobdesc*') ? 'active' : '' }}">
-            <a href= "{{ route('mitra.jobdesc.index') }}" class="menu-link">
+          <li class="menu-item {{ request()->is('/jobdesc') ? 'active' : '' }}">
+            <a href= "{{route('jobdescs.index')}}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>
-          </a>
-          
-         
+            </a>
+          </li>
 @endif
 
 @if (Auth::user()->role_id == 4 || Auth::user()->role_id == 3)
@@ -293,7 +302,7 @@
 @elseif (Auth::user()->dosen)
 <img src="{{ asset('images/' . Auth::user()->dosen->gambar) }}" alt="{{ Auth::user()->dosen->gambar }}" style="border-radius: 50%; width: 40px; height: 40px;">
 @else
-<img src="{{ asset('default-avatar.jpg') }}" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
+<img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Gambar Default" style="border-radius: 50%; width: 40px; height: 40px;">
 @endif
                   </div>
                   
@@ -346,7 +355,7 @@
 
     <script src="{{ asset('../assets') }}/vendor/js/menu.js"></script>
     <!-- endbuild -->
-
+@yield('scripts')
     <!-- Vendors JS -->
     <script src="{{ asset('../assets') }}/vendor/libs/apex-charts/apexcharts.js"></script>
 

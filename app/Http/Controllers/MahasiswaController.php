@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Logbook;
 use App\Models\Mahasiswa;
+use App\Models\Penilaian;
 use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -182,6 +183,30 @@ public function updateProfil(Request $request)
     }
 
     return redirect()->route('mahasiswa.profil')->with('success', 'Profil berhasil diperbarui.');
+}
+
+public function nilaiMagang(){
+
+        $user = Auth::id();
+        $mahasiswaId = Mahasiswa::where('user_id', $user)->first()->id;
+
+        $penilaians = Penilaian::where('mhs_id', $mahasiswaId)->get();
+        $totalEksternal = 0;
+        $totalInternal = 0;
+
+        // Menghitung total nilai eksternal dan internal
+        foreach ($penilaians as $penilaian) {
+            if ($penilaian->kriteriaPenilaian->jenis === 'eksternal') {
+                $totalEksternal += $penilaian->nilai;
+            } elseif ($penilaian->kriteriaPenilaian->jenis === 'internal') {
+                $totalInternal += $penilaian->nilai;
+            }
+        }
+
+        // Menghitung total nilai akhir dengan bobot 70% eksternal dan 30% internal
+        $totalNilaiAkhir = ($totalEksternal * 0.7) + ($totalInternal * 0.3);
+
+        return view('mahasiswa.nilai_magang.index', compact('penilaians', 'totalNilaiAkhir'));
 }
 
 }

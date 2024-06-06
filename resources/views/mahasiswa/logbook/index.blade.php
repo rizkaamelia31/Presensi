@@ -77,6 +77,11 @@
                         <div id="collapse{{ $week }}" class="collapse" aria-labelledby="heading{{ $week }}" data-bs-parent="#accordionExample">
                             <div class="card-body">
                                 @foreach ($logbooks as $item)
+                                    @php
+                                        // Periksa apakah hari ini bukan Sabtu (6) atau Minggu (7)
+                                        $dayOfWeek = \Carbon\Carbon::parse($item->created_at)->dayOfWeek;
+                                    @endphp
+                                    @if ($dayOfWeek != 6 && $dayOfWeek != 7)
                                     <div class="logbook-item p-3 my-2 shadow position-relative" style="border: 1px solid #AEAEAE; border-radius:16px">
                                         <span class="text-muted fw-semibold">{{ \Carbon\Carbon::parse($item->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
                                         <p class="text-muted">{{ $item->deskripsi }}</p>
@@ -136,11 +141,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 @endforeach
+                
             </div>
         </div>
     </div>

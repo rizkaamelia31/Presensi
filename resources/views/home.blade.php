@@ -6,9 +6,6 @@
     <div class="col-md-12 mb-2">
       <div class="card p-3">
         <div class="d-flex align-items-center gap-3">
-          <div>
-            <img src="{{ Auth::user()->gambar ? asset('storage/' . Auth::user()->gambar) : '' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/>
-          </div>
           <div class="">
             <h4 class="m-0">Beranda</h4>
             <p>Selamat Datang kembali, {{ Auth::user()->name }} !</p>

@@ -18,7 +18,6 @@ class LogbookController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        // Mengambil ID mahasiswa dari pengguna yang sedang login
     $mhs_id = Auth::user()->id;
 
     // Membuat logbook dengan mhs_id yang sudah diperoleh

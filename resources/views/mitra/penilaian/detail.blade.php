@@ -83,14 +83,15 @@
             </table>
         </div>
     </div>
-    @endif
-
     <div class="my-3 p-3 card">
         @php
             $totalNilaiAkhir = ($totalInternal * 0.3) + ($totalExternal * 0.7); // Menghitung total nilai akhir dengan bobot 30% internal dan 70% eksternal
         @endphp
         <p>Total Nilai Akhir Mahasiswa = {{ number_format($totalNilaiAkhir, 0, '', '') }}</p> {{-- Total nilai akhir di-format tanpa desimal --}}
     </div>
+    @endif
+
+   
     @endif
 
 </div>
