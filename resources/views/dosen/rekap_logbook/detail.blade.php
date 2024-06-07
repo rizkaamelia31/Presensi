@@ -170,7 +170,6 @@
                 return logDate.toISOString().substring(0, 10);
             });
 
-            console.log('attendanceDates:', attendanceDates);
 
             // Menghasilkan event untuk kehadiran dan ketidakhadiran
             var events = [];
@@ -179,27 +178,24 @@
                 currentDate.setUTCDate(currentDate.getUTCDate() + d);
                 var formattedDate = currentDate.toISOString().substring(0, 10);
 
-                console.log('Tanggal yang sedang diproses:', formattedDate);
 
                 if (formattedDate >= '2024-04-29') {
                     var dayOfWeek = currentDate
                 .getUTCDay(); // Mendapatkan hari dalam seminggu (0=Sunday, 6=Saturday)
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Mengecualikan Sabtu dan Minggu
-                        console.log('Masuk ke dalam kondisi if untuk tanggal:', formattedDate);
+                     
                         if (attendanceDates.includes(formattedDate)) {
                             events.push({
                                 title: '✔',
                                 start: formattedDate,
                                 color: 'green'
                             });
-                            console.log('Event Hadir untuk tanggal:', formattedDate);
                         } else {
                             events.push({
                                 title: '✖',
                                 start: formattedDate,
                                 color: 'red'
                             });
-                            console.log('Event Tidak Hadir untuk tanggal:', formattedDate);
                         }
                     }
                 }

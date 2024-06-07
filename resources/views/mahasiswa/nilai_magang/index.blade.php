@@ -1,11 +1,10 @@
-<!-- resources/views/mahasiswa/nilai_magang/index.blade.php -->
-
 @extends('layouts.dashboard')
 
 @section('content')
 <div class=" my-3">
     <div class="card p-3">
         <h1>Nilai Magang Mahasiswa</h1>
+        <a href="{{ route('mahasiswa.nilai-magang.pdf') }}" class="btn btn-primary mb-3">Download PDF</a>
         @if ($penilaians->isEmpty())
             <p class="text-center">Belum ada nilai magang tersedia.</p>
         @else
@@ -23,7 +22,7 @@
                     @foreach ($penilaians as $key => $penilaian)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $penilaian->kriteriaPenilaian->nama_kriteria }}</td> 
+                            <td>{{ $penilaian->kriteriaPenilaian->nama_kriteria }}</td>
                             <td>{{ number_format($penilaian->kriteriaPenilaian->bobot, 0, '', '') }}%</td>
                             <td>{{ $penilaian->kriteriaPenilaian->jenis }}</td>
                             <td>{{ number_format($penilaian->nilai, 0, '', '') }}</td>

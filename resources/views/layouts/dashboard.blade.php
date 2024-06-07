@@ -223,7 +223,7 @@
 @endif
 
           @if (Auth::user()->role_id == 3)
-<li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
             <a href= "{{ route('mitra.logbook.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>

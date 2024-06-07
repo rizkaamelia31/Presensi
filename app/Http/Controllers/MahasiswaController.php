@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Models\Logbook;
-use App\Models\Mahasiswa;
 use App\Models\Penilaian;
 use App\Models\Perusahaan;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 

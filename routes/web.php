@@ -11,6 +11,8 @@ use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\PenilaianAkhirController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\JobDescController;
+use App\Http\Controllers\PdfController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +66,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/mahasiswa/nilaimagang', [MahasiswaController::class, 'nilaiMagang'])->name('mahasiswa.nilai_magang.index');
     Route::get('/mahasiswa/penilaian_akhir', [MahasiswaController::class, 'penilaian_akhir'])->name('mahasiswa.penilaian_akhir.index');
     Route::post('/upload-laporan', [MahasiswaController::class, 'uploadLaporan'])->name('mahasiswa.upload.laporan');
+
+    Route::get('/mahasiswa/nilai-magang/pdf', [PdfController::class, 'generatePdf'])->name('mahasiswa.nilai-magang.pdf');
 
  });
  
