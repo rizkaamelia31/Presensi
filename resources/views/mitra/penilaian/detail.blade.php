@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     
-    <a class="btn btn-secondary my-3" href="{{ route('penilaian.index') }}">Kembali</a>
+    <a href="{{ route('penilaian.index') }}" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-arrow-left-short"></i> Kembali
+    </a>
     <h2 class="mt-1 fw-semibold">Rincian Penilaian: {{ $mahasiswa->user->name }}</h2>
 
     @if (Auth::user()->role_id == 3 || Auth::user()->role_id == 4)

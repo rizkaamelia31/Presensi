@@ -29,6 +29,11 @@ class MitraController extends Controller
     return redirect()->back()->with('success', 'Logbook berhasil dikonfirmasi');
 }
 
+    public function detail_logbook()
+{
+    return view('mitra.logbook.detail');
+}
+
 public function JobdescMitra()
 {
     return view("mitra.jobdesc.index");

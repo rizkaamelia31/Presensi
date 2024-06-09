@@ -195,8 +195,14 @@
           </li>
 @endif
 
-          @if (Auth::User()->role_id == 1)
-          <li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
+@if (Auth::User()->role_id == 1)
+<li class="menu-item {{ request()->is('job') ? 'active' : '' }}">
+          <a href= "{{route('jobdescs.index')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Jobdesc</div>
+          </a>
+          </li>
+<li class="menu-item {{ request()->is('mahasiswa/logbook*') ? 'active' : '' }}">
               <a href= "{{ route('mahasiswa.logbook.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Logbook</div>
@@ -214,12 +220,6 @@
             <div data-i18n="Analytics">Nilai Magang</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->is('job') ? 'active' : '' }}">
-            <a href= "{{route('jobdescs.index')}}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Jobdesc</div>
-            </a>
-          </li>
 @endif
 
           @if (Auth::user()->role_id == 3)
@@ -228,7 +228,7 @@
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
           </a>
-          <li class="menu-item {{ request()->is('/jobdesc') ? 'active' : '' }}">
+          <li class="menu-item {{ request()->is('jobdesc/index*') ? 'active' : '' }}">
             <a href= "{{route('jobdescs.index')}}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>

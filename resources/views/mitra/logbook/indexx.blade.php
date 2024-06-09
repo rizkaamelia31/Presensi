@@ -35,7 +35,10 @@
                   <th>No</th>
                   <th>Gambar</th>
                   <th>Nama Mahasiswa</th>
-                  <th>Keterangan</th>
+                  <th>Deskripsi Logbook</th>
+                  <th>Tanggal Dibuat</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
@@ -44,8 +47,10 @@
                     <td><strong>{{ $loop->iteration }}</strong></td>
                     <td><img src="{{ asset('images/' . $logbook->mahasiswa->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
                     <td><p>{{ $logbook->mahasiswa->user->name }}</p></td>
-                    <td><a href="{{ route('mitra.logbook.index', $logbook->id) }}" class="btn btn-primary">Lihat Detail</a></td>
-                    {{-- <td>
+                    <td><p class="logbook-description">{{ $logbook->deskripsi }}</p></td>
+                    <td><p>{{ $logbook->created_at }}</p></td>
+                    <td><p>{{ $logbook->status }}</p></td>
+                    <td>
                       @if($logbook->status != 'Disetujui')
                         <form action="{{ route('logbook.confirm', $logbook->id) }}" method="POST">
                           @csrf
@@ -55,7 +60,7 @@
                       @else
                         <button class="btn btn-secondary" disabled>Sudah Dikonfirmasi</button>
                       @endif
-                    </td> --}}
+                    </td>
                   </tr>
                 @endforeach
               </tbody>

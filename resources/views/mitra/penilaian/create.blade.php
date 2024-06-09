@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="container">
-        <a class="btn btn-secondary my-3" href="{{ route('penilaian.index') }}">Kembali</a>
-        <h1>Beri Nilai: {{ $mahasiswa->user->name }}</h1>
+        <a href="{{ route('penilaian.index') }}" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-arrow-left-short"></i> Kembali
+        </a>
+        <h3>Beri Nilai: {{ $mahasiswa->user->name }}</h3>
 
         @if ($errors->any())
             <div class="alert alert-danger">

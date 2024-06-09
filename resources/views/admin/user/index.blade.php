@@ -28,15 +28,15 @@
             <td>{{$item->email}}</td>
             <td>{{$item->role->name}}</td>
             <td>
-
                 <a href="{{route('users.edit',$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
 
-                <form action="{{route('users.destroy',$item->id)}}" method="post">
-                @csrf
-                @method('delete')
-                <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                <form action="{{route('users.destroy',$item->id)}}" method="post" class="d-inline">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Akun Ini?')">Delete</button>
                 </form>
             </td>
+
         </tr>
            @endforeach
             <!-- Tambahkan baris lain sesuai dengan data yang ingin ditampilkan -->
