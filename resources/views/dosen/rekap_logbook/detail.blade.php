@@ -134,7 +134,10 @@
                                                   {{ optional($item->created_at)->format('d F Y') }}
                                               </span>
                                               {{ $item->deskripsi }}
-                                          </div>
+                                                <div class="embed-container position-relative" style="width: 100px; height: 100px;">
+                                                    <embed src="{{ asset('lampiran/' . $item->lampiran) }}"width="100" height="100" class="my-2">
+                                                    <a href="{{ asset('lampiran/' . $item->lampiran) }}" target="_blank" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;"></a>
+                                                </div>
                                       @endforeach
                                   </div>
                               </div>
@@ -154,7 +157,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             var logbooks = @json($logbook);
 
-            // Tanggal pertama adalah 1 Mei 2024
             var firstLogDate = new Date(Date.UTC(2024, 3, 29, 0, 0, 0)); // bulan dimulai dari 0, jadi 4 adalah Mei
 
             // Mendapatkan tanggal sekarang

@@ -41,6 +41,10 @@
             <input type="text" class="form-control" id="nama_supervisor" name="nama_supervisor">
             <label for="no_hp_supervisor">No hp supervisor</label>
             <input type="text" class="form-control" id="no_hp_supervisor" name="no_hp_supervisor">
+            <label for="nim">nim:</label>
+            <input type="text" class="form-control" id="nim" name="nim">
+            <label for="angkatan">angkatan:</label>
+            <input type="text" class="form-control" id="angkatan" name="angkatan">
             <label for="perusahaan_id_mhs">Perusahaan:</label>
             <select class="form-control" id="perusahaan_id_mhs" name="perusahaan_id_mhs">
                 <option value="">Pilih Perusahaan</option>

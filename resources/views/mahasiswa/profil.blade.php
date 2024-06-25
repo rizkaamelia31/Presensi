@@ -4,7 +4,7 @@
 <div class="container py-5">
   <div class="row vh-100">
     <div class="co-md-12">
-        <a href="/home"class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-left-short"></i>Kembali</a>
+        <a href="/home"class="btn btn-outline-primary"><i class="bi bi-arrow-left-short"></i>Kembali</a>
         <div class="card-body">
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">

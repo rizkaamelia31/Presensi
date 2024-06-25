@@ -33,18 +33,19 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Gambar</th>
+                  <th>Profil Mahasiswa</th>
                   <th>Nama Mahasiswa</th>
                   <th>Keterangan</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                @foreach($logbooks as $index => $logbook)
+                @foreach($groupedLogbooks as $index => $logbook)
                   <tr>
                     <td><strong>{{ $loop->iteration }}</strong></td>
-                    <td><img src="{{ asset('images/' . $logbook->mahasiswa->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
-                    <td><p>{{ $logbook->mahasiswa->user->name }}</p></td>
-                    <td><a href="{{ route('mitra.logbook.index', $logbook->id) }}" class="btn btn-primary">Lihat Detail</a></td>
+                    <td><img src="{{ asset('images/'. $logbook->first()->mahasiswa->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
+                    <td><p>{{ $logbook->first()->mahasiswa->user->name }}</p></td>
+                    <td><a href="{{ route('mitra.logbook.show', $logbook->first()->mhs_id) }}" class="btn btn-primary">Lihat Detail</a></td>
+
                     {{-- <td>
                       @if($logbook->status != 'Disetujui')
                         <form action="{{ route('logbook.confirm', $logbook->id) }}" method="POST">

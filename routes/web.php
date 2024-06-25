@@ -78,6 +78,7 @@ Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/mitra/penilaian_akhir', [MitraController::class, 'penilaian_akhir'])->name('mitra.penilaian_akhir.index');
     Route::get('/mitra/logbook', [MitraController:: class, 'logbookMitra'])->name('mitra.logbook.index');
     Route::put('/mitra/logbook/confirm/{id}', [MitraController::class, 'confirm'])->name('logbook.confirm');
+    Route::get('mitra/logbook/{mahasiswa}', [MitraController::class, 'logbookShow'])->name('mitra.logbook.show');
 });
 
 

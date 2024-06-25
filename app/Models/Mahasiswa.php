@@ -18,6 +18,8 @@ class Mahasiswa extends Model
         'nama_supervisor',
         'no_hp_supervisor',
         'dosen_id',
+        'nim',
+        'angkatan',
     ];
     
     public function perusahaan()

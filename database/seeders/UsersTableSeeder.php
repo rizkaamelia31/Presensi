@@ -19,28 +19,10 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Mahasiswa User',
-                'email' => 'mahasiswa@example.com',
-                'password' => Hash::make('password'), // Password harus di-hash
-                'role_id' => 1,
-            ],
-            [
                 'name' => 'Admin User',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('password'), // Password harus di-hash
                 'role_id' => 2,
-            ],
-            [
-                'name' => 'Mitra User',
-                'email' => 'mitra@example.com',
-                'password' => Hash::make('password'), // Password harus di-hash
-                'role_id' => 3,
-            ],
-            [
-                'name' => 'Dosen User',
-                'email' => 'dosen@example.com',
-                'password' => Hash::make('password'), // Password harus di-hash
-                'role_id' => 4,
             ],
         ];
 

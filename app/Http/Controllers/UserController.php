@@ -17,10 +17,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('admin.user.index',compact("users"));
+        $role = $request->input('role');
+
+        if ($role) {
+            $users = User::whereHas('role', function ($query) use ($role) {
+                $query->where('name', $role);
+            })->get();
+        } else {
+            $users = User::all();
+        }
+    
+        return view('admin.user.index', compact('users'));
+        
     }
     
     /**
@@ -88,6 +98,9 @@ class UserController extends Controller
             $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
             $mahasiswa->dosen_id = $request->dosen_id;
             $mahasiswa->gambar = $gambarMahasiswa;
+            
+            $mahasiswa->nim = $request->nim;
+            $mahasiswa->angkatan = $request->angkatan;
             $mahasiswa->save();
         }
 
@@ -174,6 +187,8 @@ class UserController extends Controller
             $mahasiswa->no_hp_supervisor = $request->no_hp_supervisor;
             $mahasiswa->dosen_id = $request->dosen_id;
             $mahasiswa->gambar = $path;
+            $mahasiswa->nim = $request->nim;
+            $mahasiswa->angkatan = $request->angkatan;
             $mahasiswa->save();
         }
     
@@ -197,4 +212,26 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Data pengguna berhasil dihapus.');
 
     }
+    public function login(Request $request)
+    {
+        // Validasi input dengan pesan error kustom
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Kolom email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'password.required' => 'Kolom password harus diisi.',
+        ]);
+
+        // Coba untuk melakukan autentikasi pengguna
+        if (Auth::attempt($credentials)) {
+            // Autentikasi berhasil
+            return redirect()->intended('dashboard');
+        } else {
+            // Autentikasi gagal, kirimkan kembali ke halaman login dengan pesan error
+            return redirect()->back()->withErrors(['email' => __('auth.failed')])->withInput();
+        }
+    }
+    
 }

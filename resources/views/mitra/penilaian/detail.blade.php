@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="container">
-    
-    <a href="{{ route('penilaian.index') }}" class="btn btn-outline-primary btn-sm">
+    <a href="{{ route('penilaian.index') }}" class="btn btn-outline-primary">
         <i class="bi bi-arrow-left-short"></i> Kembali
     </a>
     <h2 class="mt-1 fw-semibold">Rincian Penilaian: {{ $mahasiswa->user->name }}</h2>

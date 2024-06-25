@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="container">
+    <div class="container py-2">
         <a href="{{ route('penilaian.index') }}" class="btn btn-outline-primary btn-sm">
             <i class="bi bi-arrow-left-short"></i> Kembali
         </a>
@@ -26,6 +26,7 @@
                 @if (Auth::user()->role_id == 4)
                 <div class="col-md-6">
                     <h3>Internal</h3>
+                    <h6>Silakan isi nilai penilaian dengan range antara 10 - 90</h6>
                     @foreach ($kriteriaPenilaian->get('internal', []) as $kriteria)
                         <div class="form-group">
                             <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>
@@ -38,6 +39,7 @@
                 @if (Auth::user()->role_id == 3)
                     <div class="col-md-6">
                         <h3>External</h3>
+                        <h6>Silakan isi nilai penilaian dengan range antara 10 - 90</h6>
                         @foreach ($kriteriaPenilaian->get('eksternal', []) as $kriteria)
                             <div class="form-group">
                                 <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>

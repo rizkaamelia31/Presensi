@@ -24,7 +24,7 @@
       <div class="card p-3">
         <div class="d-flex align-items-center gap-3">
           <div>
-            <img src="{{ Auth::user()->gambar ? asset('storage/' . Auth::user()->gambar) : '/assets/img/IMG_20231102_114830.jpg' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/>
+            <img src="{{ Auth::user()->mahasiswa->gambar ? asset('images/' . Auth::user()->mahasiswa->gambar) : '/assets/img/IMG_20231102_114830.jpg' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/>
           </div>
           <div class="">
             <h4 class="m-0">Beranda</h4>
@@ -60,17 +60,27 @@
       <div class="d-flex align-items-center gap-3">
         <div class="col-md-12">
           <h5 id="currentDate"></h5>
+          <div class="card p-3">
+            <div class="d-flex align-items-center gap-3">
+              <div>
+                <img src="{{ Auth::user()->dosen->gambar ? asset('images/' . Auth::user()->dosen->gambar) : '/assets/img/IMG_20231102_114830.jpg' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/>
+              </div>
+              <div class="">
+                <h4 class="m-0">Beranda</h4>
+                <p>Selamat Datang kembali, {{ Auth::user()->name }} !</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="">
-      <h4 class="m-0">Beranda</h4>
-      <p>Selamat Datang kembali, {{ Auth::user()->name }} !</p>
-    </div>
+   
   </div>
   <div class="row">
     <div class="col-md-3">
+
       <div class="card text-center mb-4">
+       
         <div class="card-body">
           <h5 class="card-title">Magang Batch</h5>
           <p class="card-text">Periode Ganjil</p>
@@ -111,9 +121,7 @@
     <div class="col-md-12 mb-2">
       <div class="card p-3">
         <div class="d-flex align-items-center gap-3">
-          <div>
-            <img src="{{ Auth::user()->gambar ? asset('storage/' . Auth::user()->gambar) : '/assets/img/IMG_20231102_114830.jpg' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/>
-          </div>
+         
           <div class="">
             <h4 class="m-0">Beranda</h4>
             <p>Selamat Datang kembali, {{ Auth::user()->name }} !</p>

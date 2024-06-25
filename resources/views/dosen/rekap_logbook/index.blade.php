@@ -9,7 +9,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Gambar</th>
+                  <th>Profil Mahasiswa</th>
                   <th>Nama Mahasiswa</th>
                   <th>Keterangan</th>
                 </tr>
@@ -17,10 +17,14 @@
               <tbody class="table-border-bottom-0">
                 @foreach($mahasiswa as $mhs)
                   <tr>
-                    <td>{{1}}</td>
-                    <td><img src="{{ asset('images/bear wallpaper pc mac 네이버 아이콘 곰.png' . $mhs->user->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
+                    <td>{{$loop->iteration}}</td>
+                    <td><img src="{{ asset('images/' . $mhs->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
+                    {{-- <img src="{{ Auth::user()->mahasiswa->gambar ? asset('images/' . Auth::user()->mahasiswa->gambar) : '/assets/img/IMG_20231102_114830.jpg' }}" class="rounded-circle" width="50" height="50" style="object-fit:cover"/> --}}
+              
                     <td>{{$mhs->user->name}}</td>
                     <td><a href="{{ route('dosen.rekap_logbook.detail', $mhs->id) }}" class="btn btn-primary">Lihat Detail</a></td>
+
+                    
 
                   </tr>
                 @endforeach
