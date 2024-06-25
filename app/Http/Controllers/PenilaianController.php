@@ -12,28 +12,28 @@ use Illuminate\Support\Facades\Auth;
 class PenilaianController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
-    
-        if ($user->role_id == 3) {
-            $perusahaan = $user->perusahaan;
-    
-            $mahasiswa = Mahasiswa::where('perusahaan_id', $perusahaan->id)
-                ->with(['user', 'penilaians'])
-                ->get();
-    
-            return view('mitra.penilaian.index', compact('mahasiswa'));
-        } else {
-            $dosen = $user->dosen;
-    
-            $mahasiswa = Mahasiswa::where('dosen_id', $dosen->id)
-                ->with(['user', 'penilaians'])
-                ->get();
-    
-            return view('mitra.penilaian.index', compact('mahasiswa'));
-        } 
-        
-    }
+{
+    $user = Auth::user();
+
+    if ($user->role_id == 3) {
+        $perusahaan = $user->perusahaan;
+
+        $mahasiswa = Mahasiswa::where('perusahaan_id', $perusahaan->id)
+            ->with(['user', 'penilaians.kriteriaPenilaian'])
+            ->get();
+
+        return view('mitra.penilaian.index', compact('mahasiswa'));
+    } else {
+        $dosen = $user->dosen;
+
+        $mahasiswa = Mahasiswa::where('dosen_id', $dosen->id)
+            ->with(['user', 'penilaians.kriteriaPenilaian'])
+            ->get();
+
+        return view('mitra.penilaian.index', compact('mahasiswa'));
+    } 
+}
+
     
 
     public function create($mhs_id)

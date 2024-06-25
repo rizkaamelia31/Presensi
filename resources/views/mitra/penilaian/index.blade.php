@@ -25,15 +25,35 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $mhs->user->name }}</td>
                         <td>
-                            {{-- @if($mhs->penilaians->isEmpty())
-                                <a class="btn btn-primary" href="{{ route('penilaian.createWithId', $mhs->id) }}">Beri Nilai</a>
-                            @else
-                                <a class="btn btn-warning" href="{{ route('penilaian.edit', $mhs->id) }}">Edit Nilai</a>
-                                <a class="btn btn-secondary" href="{{ route('penilaian.detail', $mhs->id) }}">Lihat Detail</a>
-                            @endif --}}
-                            <a class="btn btn-primary" href="{{ route('penilaian.createWithId', $mhs->id) }}">Beri Nilai</a>
+                            @php
+                                $role_id = Auth::user()->role_id;
+                        
+                                $penilaian_internal = $mhs->penilaians->filter(function($penilaian) {
+                                    return $penilaian->kriteriaPenilaian->jenis === 'internal';
+                                })->isNotEmpty();
+                        
+                                $penilaian_eksternal = $mhs->penilaians->filter(function($penilaian) {
+                                    return $penilaian->kriteriaPenilaian->jenis === 'eksternal';
+                                })->isNotEmpty();
+                            @endphp
+                        
+                            @if($role_id == 4)
+                                @if($penilaian_internal)
+                                    <a class="btn btn-warning" href="{{ route('penilaian.edit', $mhs->id) }}">Edit Nilai</a>
+                                @else
+                                    <a class="btn btn-primary" href="{{ route('penilaian.createWithId', $mhs->id) }}">Beri Nilai</a>
+                                @endif
+                            @elseif($role_id == 3)
+                                @if($penilaian_eksternal)
+                                    <a class="btn btn-warning" href="{{ route('penilaian.edit', $mhs->id) }}">Edit Nilai</a>
+                                @else
+                                    <a class="btn btn-primary" href="{{ route('penilaian.createWithId', $mhs->id) }}">Beri Nilai</a>
+                                @endif
+                            @endif
+                        
                             <a class="btn btn-secondary" href="{{ route('penilaian.detail', $mhs->id) }}">Lihat Detail</a>
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>
