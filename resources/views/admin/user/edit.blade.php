@@ -42,7 +42,18 @@
             <input type="text" class="form-control" id="nama_supervisor" name="nama_supervisor">
             <label for="no_hp_supervisor">No hp supervisor</label>
             <input type="text" class="form-control" id="no_hp_supervisor" name="no_hp_supervisor">
+            <label for="nim">nim:</label>
+            <input type="text" class="form-control" id="nim" name="nim">
+            <label for="angkatan">angkatan:</label>
+            <input type="text" class="form-control" id="angkatan" name="angkatan">
             <label for="perusahaan_id_mhs">Perusahaan:</label>
+            <label for="dosen_id">Dosen:</label>
+            {{-- <select class="form-control" id="dosen_id" name="dosen_id">
+                <option value="">Pilih Dosen</option>
+                @foreach ($dosen as $dosenItem)
+                <option value="{{ $dosenItem->id }}">{{ $dosenItem->user->name }}</option>
+                @endforeach
+            </select> --}}
             <label for="gambar_mahasiswa">Gambar Mahasiswa:</label>
             <input type="file" class="form-control" id="gambar_mahasiswa" name="gambar_mahasiswa">
         </div>

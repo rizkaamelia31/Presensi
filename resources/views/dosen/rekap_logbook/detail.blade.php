@@ -157,7 +157,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var logbooks = @json($logbook);
 
-            var firstLogDate = new Date(Date.UTC(2024, 3, 29, 0, 0, 0)); // bulan dimulai dari 0, jadi 4 adalah Mei
+            var firstLogDate = new Date(Date.UTC(2024, 5, 3, 0, 0, 0)); // bulan dimulai dari 0, jadi 4 adalah Mei
 
             // Mendapatkan tanggal sekarang
             var now = new Date();
@@ -181,7 +181,7 @@
                 var formattedDate = currentDate.toISOString().substring(0, 10);
 
 
-                if (formattedDate >= '2024-04-29') {
+                if (formattedDate >= '2024-06-03') {
                     var dayOfWeek = currentDate
                 .getUTCDay(); // Mendapatkan hari dalam seminggu (0=Sunday, 6=Saturday)
                     if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Mengecualikan Sabtu dan Minggu

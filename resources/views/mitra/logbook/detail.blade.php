@@ -39,7 +39,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Bukti</th>
+                  <th>Lampiran</th>
                   <th>Tanggal</th>
                   <th>Isi Logbook</th>
                   <th>Status</th>
@@ -50,8 +50,13 @@
                 @foreach($logbooks as $index => $logbook)
                   <tr>
                     <td><strong>{{ $loop->iteration }}</strong></td>
-                    <td><img src="{{ asset('lampiran/'. $logbook->lampiran)}}" alt="" width="100" /></td>
-                    <td>{{ $logbook->created_at }}</td>
+                    <td>
+                      <div class="embed-container position-relative" style="width: 100px; height: 100px;">
+                        <embed src="{{ asset('lampiran/' . $logbook->lampiran) }}"width="100" height="100" class="my-2">
+                        <a href="{{ asset('lampiran/' . $logbook->lampiran) }}" target="_blank" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;"></a>  
+                    </td>
+                      </div>
+                    <td>{{ $logbook->created_at }}</td> 
                     <td class="logbook-description">{{ $logbook->deskripsi }}</td>
                     <td>{{ $logbook->status }}</td>
                     <td>

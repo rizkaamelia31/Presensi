@@ -107,7 +107,7 @@
       <div class="card text-center mb-4">
         <div class="card-body">
           <h5 class="card-title">Total Mahasiswa Magang</h5>
-          <p class="card-text">100 Mahasiswa</p>
+          <p class="card-text">20 Mahasiswa</p>
         </div>
       </div>
     </div>
@@ -142,6 +142,14 @@
         <div class="card-body">
           <h5 class="card-title">Total Logbook Yang Belum Disetujui</h5>
           <p class="card-text">{{$logbooksPendingApproval}} Logbook</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Total Mahasiswa Magang</h5>
+          <p class="card-text">100 Mahasiswa</p>
         </div>
       </div>
     </div>

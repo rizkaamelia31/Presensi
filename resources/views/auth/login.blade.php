@@ -16,6 +16,9 @@
       .footer-text {
         color: white;
       }
+      /* body {
+        background-color: blue;
+      } */
     </style>
   </head>
   <body class="d-flex flex-column vh-100">
@@ -57,9 +60,9 @@
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
                   <label class="form-check-label" for="form1Example3"> Ingatkan saya </label>
-                </div>
+                {{-- </div>
                 <a href="#!">Lupa Kata Sandi</a>
-              </div>
+              </div> --}}
             </form>
           </div>
         </div>
