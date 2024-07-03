@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+
 @section('content')
 
 <div class="pt-5">
@@ -26,7 +27,8 @@
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                @endif
+                </div>
+            @endif
             <h3>Logbook Harian</h3>
         </div>
     </div>
@@ -59,24 +61,35 @@
         <div class="card">
             <h5 class="card-header">Data Logbook {{ Auth::user()->name }}</h5>
             <div class="accordion" id="accordionExample">
-                @foreach ($logbook->groupBy(function ($date) {
-                    return Carbon\Carbon::parse($date->created_at)->format('W');
-                }) as $week => $logbooks)
-                    @php
-                        $startOfWeek = $logbooks->first()->created_at->startOfWeek();
-                        $endOfWeek = $logbooks->first()->created_at->endOfWeek();
-                    @endphp
-                    <div class="card">
-                        <div class="card-header" id="heading{{ $week }}">
-                            <h2 class="mb-0">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $week }}" aria-expanded="false" aria-controls="collapse{{ $week }}">
-                                    {{ $startOfWeek->isoFormat('D MMMM') }} - {{ $endOfWeek->isoFormat('D MMMM') }}
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapse{{ $week }}" class="collapse" aria-labelledby="heading{{ $week }}" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                @foreach ($logbooks as $item)
+                @php
+                    // Ambil tanggal mulai dari settings_magang
+                    $settingsMagang = App\Models\SettingMagang::where('magang_batch', Auth::user()->mahasiswa->magang_batch)->first();
+                    $firstLogDate = $settingsMagang ? \Carbon\Carbon::parse($settingsMagang->tanggal_mulai) : \Carbon\Carbon::now();
+                    
+                    // Mendapatkan tanggal sekarang
+                    $now = \Carbon\Carbon::now()->startOfDay();
+                    // Menghitung selisih hari antara tanggal pertama dan sekarang
+                    $daysDiff = $firstLogDate->diffInDays($now);
+                    // Menghitung selisih minggu antara tanggal pertama dan sekarang
+                    $weeksDiff = $firstLogDate->diffInWeeks($now);
+                @endphp
+
+                @for ($i = 0; $i <= $weeksDiff; $i++)
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ $i }}" aria-expanded="false"
+                                aria-controls="collapse{{ $i }}">
+                                Week {{ $i + 1 }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ $i }}" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body mb-2">
+                                @foreach ($logbook->filter(function ($item) use ($firstLogDate, $i) {
+                                          // Filter logbook berdasarkan minggu
+                                          return optional($item->created_at)->startOfWeek()->diffInWeeks($firstLogDate) == $i;
+                                      }) as $item)
                                     @php
                                         // Periksa apakah hari ini bukan Sabtu (6) atau Minggu (7)
                                         $dayOfWeek = \Carbon\Carbon::parse($item->created_at)->dayOfWeek;
@@ -146,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endfor
                 
             </div>
         </div>

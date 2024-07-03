@@ -36,7 +36,12 @@
             <label for="tanggal_lahir">Tanggal Lahir:</label>
             <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
             <label for="magang_batch">Magang Batch:</label>
-            <input type="text" class="form-control" id="magang_batch" name="magang_batch">
+            <select class="form-control" id="magang_batch" name="magang_batch">
+                <option value="">Pilih Batch</option>
+                @foreach ($magangBatches as $batch)
+                    <option value="{{ $batch->magang_batch }}">{{ $batch->magang_batch }}</option>
+                @endforeach
+            </select>
             <label for="nama_supervisor">Nama Supervisor:</label>
             <input type="text" class="form-control" id="nama_supervisor" name="nama_supervisor">
             <label for="no_hp_supervisor">No hp supervisor</label>

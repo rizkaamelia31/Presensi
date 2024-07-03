@@ -43,5 +43,10 @@ public function penilaians()
         return $this->hasMany(Penilaian::class, 'mhs_id');
     }
 
+    public function settingMagang()
+    {
+        return $this->belongsTo(SettingMagang::class, 'magang_batch', 'magang_batch');
+    }
+
 
 }

@@ -79,7 +79,7 @@
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="{{asset('assets')}}\img\LOGO4A.png" alt="Magang Log Logo" width="25">
+                <img src="{{ asset('assets') }}\img\LOGO4A.png" alt="Magang Log Logo" width="25">
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Magang Log</span>
             </a>
@@ -101,7 +101,7 @@
             </li>
 
             @if (Auth::user()->role_id == 2)
-                    <li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
                     <li class="menu-item {{ request()->is('users/create') ? 'active' : '' }}">
               <a href="/users" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
@@ -114,16 +114,16 @@
               <div data-i18n="Analytics">Kriteria Penilaian</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
-              <a href="/home" class="menu-link">
+            <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+              <a href="/settings_magang" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Setting</div>
               </a>
-            </li> --}}
-            @endif
+            </li>
+@endif
 
           @if (Auth::user()->role_id == 4)
-          <li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/detail_rekap_logbook*') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('dosen/rekap_logbook*') || request()->is('dosen/detail_rekap_logbook*') ? 'active' : '' }}">
               <a href="{{ route('dosen.rekap_logbook.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Rekap Logbook</div>
@@ -146,7 +146,7 @@
 
 @if (Auth::User()->role_id == 1)
 <li class="menu-item {{ request()->is('job') ? 'active' : '' }}">
-          <a href= "{{route('jobdescs.index')}}" class="menu-link">
+          <a href= "{{ route('jobdescs.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Jobdesc</div>
           </a>
@@ -172,13 +172,13 @@
 @endif
 
           @if (Auth::user()->role_id == 3)
-          <li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
+<li class="menu-item {{ request()->is('mitra/logbook*') ? 'active' : '' }}">
             <a href= "{{ route('mitra.logbook.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Logbook</div>
           </a>
           <li class="menu-item {{ request()->is('job*') ? 'active' : '' }}">
-            <a href= "{{route('jobdescs.index')}}" class="menu-link">
+            <a href= "{{ route('jobdescs.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Jobdesc</div>
             </a>
@@ -224,19 +224,7 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              {{-- <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search --> --}}
+           
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->

@@ -2,9 +2,9 @@
 @section('content')
 <style>
   .logbook-description {
-    white-space: pre-wrap; /* Menjaga whitespace */
-    text-align: left;      /* Merapikan teks ke kiri */
-    word-wrap: break-word; /* Memastikan kata tidak melampaui batas */
+    white-space: pre-wrap;
+    text-align: left;     
+    word-wrap: break-word; 
   }
 </style>
 <div class="container py-5">
@@ -20,14 +20,32 @@
             </ul>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+        @endif
 
-    @if (session('success'))
+        @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+        @endif
+
+        <!-- Filter Form -->
+        <form method="GET" action="{{ route('mitra.logbook.index') }}">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <select name="magang_batch" class="form-select">
+                        <option value="">Pilih Batch Magang</option>
+                        @foreach($batches as $availableBatch)
+                            <option value="{{ $availableBatch }}" {{ request('magang_batch') == $availableBatch ? 'selected' : '' }}>{{ $availableBatch }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </form>
+
         <div class="table-responsive text-nowrap card">
             <table class="table text-center">
               <thead>
@@ -45,18 +63,6 @@
                     <td><img src="{{ asset('images/'. $logbook->first()->mahasiswa->gambar) }}" width="50" alt="Gambar Mahasiswa"></td>
                     <td><p>{{ $logbook->first()->mahasiswa->user->name }}</p></td>
                     <td><a href="{{ route('mitra.logbook.show', $logbook->first()->mhs_id) }}" class="btn btn-primary">Lihat Detail</a></td>
-
-                    {{-- <td>
-                      @if($logbook->status != 'Disetujui')
-                        <form action="{{ route('logbook.confirm', $logbook->id) }}" method="POST">
-                          @csrf
-                          @method('PUT')
-                          <button type="submit" class="btn btn-success">Konfirmasi</button>
-                        </form>
-                      @else
-                        <button class="btn btn-secondary" disabled>Sudah Dikonfirmasi</button>
-                      @endif
-                    </td> --}}
                   </tr>
                 @endforeach
               </tbody>

@@ -10,21 +10,28 @@ use Carbon\Carbon;
 
 class MitraController extends Controller
 {
-    public function logbookMitra()
-{
-    $user = auth()->user();
-    $perusahaan = $user->perusahaan->id;
-    $logbooks = Logbook::whereHas('mahasiswa', function ($query) use ($perusahaan) {
-        $query->where('perusahaan_id', $perusahaan);
-    })->with('mahasiswa')->get();
-
-
-    $groupedLogbooks = $logbooks->groupBy('mhs_id');
+    public function logbookMitra(Request $request)
+    {
+        $user = auth()->user();
+        $perusahaan = $user->perusahaan->id;
+        $batch = $request->input('magang_batch');
     
-    $hariIni = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
-
-    return view("mitra.logbook.index", compact('groupedLogbooks', 'hariIni'));
-}
+        $batches = Mahasiswa::distinct()->pluck('magang_batch');
+        $logbooksQuery = Logbook::whereHas('mahasiswa', function ($query) use ($perusahaan, $batch) {
+            $query->where('perusahaan_id', $perusahaan);
+            if ($batch) {
+                $query->where('magang_batch', $batch);
+            }
+        })->with('mahasiswa.user');
+    
+        $logbooks = $logbooksQuery->get();
+    
+        $groupedLogbooks = $logbooks->groupBy('mhs_id');
+        
+        $hariIni = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
+    
+        return view("mitra.logbook.index", compact('groupedLogbooks', 'hariIni', 'batches', 'batch'));
+    }
 
     public function confirm($id)
 {

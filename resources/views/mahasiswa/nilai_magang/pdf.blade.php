@@ -36,19 +36,26 @@
                 <th>Kriteria Penilaian</th>
                 <th>Bobot</th>
                 <th>Jenis</th>
-                <th>Nilai</th>
+                <th>Nilai Rata-rata</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($penilaians as $key => $penilaian)
-                        <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>{{ $penilaian->kriteriaPenilaian->nama_kriteria }}</td>
-                            <td>{{ number_format($penilaian->kriteriaPenilaian->bobot, 0, '', '') }}%</td>
-                            <td>{{ $penilaian->kriteriaPenilaian->jenis }}</td>
-                            <td>{{ number_format($penilaian->nilai, 0, '', '') }}</td>
-                        </tr>
-                    @endforeach
+            @php
+                $index = 1;
+            @endphp
+
+            @foreach ($groupedPenilaian as $kriteria => $data)
+                @php
+                    $averageNilai = $data['total_nilai'] / $data['count'];
+                @endphp
+                <tr>
+                    <td>{{ $index++ }}</td>
+                    <td>{{ $kriteria }}</td>
+                    <td>{{ number_format($data['bobot'], 0, '', '') }}%</td>
+                    <td>{{ $data['jenis'] }}</td>
+                    <td>{{ number_format($averageNilai, 0, '', '') }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </body>

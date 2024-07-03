@@ -12,7 +12,7 @@ use App\Http\Controllers\PenilaianAkhirController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\JobDescController;
 use App\Http\Controllers\PdfController;
-
+use App\Http\Controllers\SettingMagangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,17 +32,16 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('penilaian', PenilaianController::class);
-    Route::get('penilaian/create/{mhs_id}', [PenilaianController::class, 'create'])->name('penilaian.createWithId');
-    Route::get('penilaian/create/{mhs_id}', [PenilaianController::class, 'create'])->name('penilaian.createWithId');
+    Route::get('penilaian/create/{mhs_id}/{type}', [PenilaianController::class, 'create'])->name('penilaian.createWithId');
+    Route::get('penilaian/edit/{mhs_id}/{type}', [PenilaianController::class, 'edit'])->name('penilaian.editPenilaian');
     Route::get('penilaian/detail/{mhs_id}', [PenilaianController::class, 'detail'])->name('penilaian.detail');
     Route::get('job', [JobDescController::class, 'index'])->name('jobdescs.index');
-Route::get('job/create', [JobDescController::class, 'create'])->name('jobdescs.create');
-Route::post('job', [JobDescController::class, 'store'])->name('jobdescs.store');
-Route::get('job/{id}', [JobDescController::class, 'show'])->name('jobdescs.show');
-Route::get('job/{id}/edit', [JobDescController::class, 'edit'])->name('jobdescs.edit');
-Route::put('job/{id}', [JobDescController::class, 'update'])->name('jobdescs.update');
-Route::delete('job/{id}', [JobDescController::class, 'destroy'])->name('jobdescs.destroy');
-
+    Route::get('job/create', [JobDescController::class, 'create'])->name('jobdescs.create');
+    Route::post('job', [JobDescController::class, 'store'])->name('jobdescs.store');
+    Route::get('job/{id}', [JobDescController::class, 'show'])->name('jobdescs.show');
+    Route::get('job/{id}/edit', [JobDescController::class, 'edit'])->name('jobdescs.edit');
+    Route::put('job/{id}', [JobDescController::class, 'update'])->name('jobdescs.update');
+    Route::delete('job/{id}', [JobDescController::class, 'destroy'])->name('jobdescs.destroy');
 });
 
 Route::middleware(['auth', 'role:4'])->group(function () {
@@ -68,31 +67,22 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/upload-laporan', [MahasiswaController::class, 'uploadLaporan'])->name('mahasiswa.upload.laporan');
 
     Route::get('/mahasiswa/nilai-magang/pdf', [PdfController::class, 'generatePdf'])->name('mahasiswa.nilai-magang.pdf');
+});
 
- });
- 
 
 Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/mitra/rekap_logbook', [MitraController::class, 'rekap_logbook'])->name('mitra.rekap_logbook.index');
     Route::get('/mitra/logbook', [MitraController::class, 'logbook'])->name('mitra.logbook.detail');
     Route::get('/mitra/penilaian_akhir', [MitraController::class, 'penilaian_akhir'])->name('mitra.penilaian_akhir.index');
-    Route::get('/mitra/logbook', [MitraController:: class, 'logbookMitra'])->name('mitra.logbook.index');
+    Route::get('/mitra/logbook', [MitraController::class, 'logbookMitra'])->name('mitra.logbook.index');
     Route::put('/mitra/logbook/confirm/{id}', [MitraController::class, 'confirm'])->name('logbook.confirm');
     Route::get('mitra/logbook/{mahasiswa}', [MitraController::class, 'logbookShow'])->name('mitra.logbook.show');
 });
 
 
 Route::middleware(['auth', 'role:2'])->group(function () {
-    Route::resource('users', UserController::class); 
+    Route::resource('users', UserController::class);
     Route::resource('kriteria-penilaian', KriteriaPenilaianController::class);
-
-
+    Route::resource('settings_magang', SettingMagangController::class);
 });
-
-
-// Route::get('/penilaian_akhir/create', [PenilaianAkhirController::class, 'create'])->name('penilaian_akhir.create');
-// Route::post('/penilaian_akhir', [PenilaianAkhirController::class, 'store'])->name('penilaian_akhir.store');
-
-
 Auth::routes();
-

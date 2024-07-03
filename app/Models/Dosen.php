@@ -20,5 +20,8 @@ class Dosen extends Model
 {
     return $this->belongsTo(User::class, 'user_id');
 }
-
+public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class, 'dosen_id');
+    }
 }

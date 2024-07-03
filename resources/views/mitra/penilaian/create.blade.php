@@ -21,31 +21,38 @@
         <form action="{{ route('penilaian.store') }}" method="POST">
             @csrf
             <input type="hidden" name="mhs_id" value="{{ $mahasiswa->id }}">
+            @if (Auth::user()->role_id == 4)
+                <input type="hidden" name="dosen_id" value="{{ $dosen_id }}">
+            @endif
 
             <div class="row">
                 @if (Auth::user()->role_id == 4)
-                <div class="col-md-6">
-                    <h3>Internal</h3>
-                    <h6>Silakan isi nilai penilaian dengan range antara 10 - 90</h6>
-                    @foreach ($kriteriaPenilaian->get('internal', []) as $kriteria)
-                        <div class="form-group">
-                            <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>
-                            <input type="number" name="nilai_{{ $kriteria->id }}" class="form-control" min="0"
-                                max="100" step="0.01">
-                        </div>
-                    @endforeach
-                </div>
+                    <div class="col-md-6">
+                        <h3>Internal</h3>
+                        <h6>Silakan isi nilai penilaian dengan range antara 10 - 90</h6>
+                        @foreach ($kriteriaPenilaian as $kriteria)
+                            @if ($kriteria->jenis == 'internal')
+                                <div class="form-group">
+                                    <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>
+                                    <input type="number" name="nilai_{{ $kriteria->id }}" class="form-control"
+                                        min="0" max="100" step="0.01">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 @endif
                 @if (Auth::user()->role_id == 3)
                     <div class="col-md-6">
                         <h3>External</h3>
                         <h6>Silakan isi nilai penilaian dengan range antara 10 - 90</h6>
-                        @foreach ($kriteriaPenilaian->get('eksternal', []) as $kriteria)
-                            <div class="form-group">
-                                <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>
-                                <input type="number" name="nilai_{{ $kriteria->id }}" class="form-control" min="0"
-                                    max="100" step="0.01">
-                            </div>
+                        @foreach ($kriteriaPenilaian as $kriteria)
+                            @if ($kriteria->jenis == 'eksternal')
+                                <div class="form-group">
+                                    <label>{{ $kriteria->nama_kriteria }} ({{ $kriteria->bobot }}%)</label>
+                                    <input type="number" name="nilai_{{ $kriteria->id }}" class="form-control"
+                                        min="0" max="100" step="0.01">
+                                </div>
+                            @endif
                         @endforeach
 
                     </div>

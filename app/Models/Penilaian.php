@@ -11,7 +11,11 @@ class Penilaian extends Model
 
     protected $table = 'penilaian';
     protected $fillable = [
-        'mhs_id', 'kriteria_penilaian_id', 'nilai',
+        'mhs_id',
+        'kriteria_penilaian_id',
+        'dosen_id',
+        'perusahaan_id',
+        'nilai',
     ];
 
     public function mahasiswa()

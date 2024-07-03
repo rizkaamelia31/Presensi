@@ -24,4 +24,9 @@ class Perusahaan extends Model
     {
         return $this->hasMany(Mahasiswa::class);
     }
+
+    public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class, 'perusahaan_id');
+    }
 }

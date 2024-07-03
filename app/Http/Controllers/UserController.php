@@ -9,6 +9,8 @@ use App\Models\Role;
 use App\Models\Perusahaan;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\SettingMagang;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,7 +46,8 @@ class UserController extends Controller
         $roles = Role::all();
         $perusahaan = Perusahaan::all();
         $dosen = Dosen::all();
-        return view('admin.user.create',compact('roles','perusahaan','dosen'));
+        $magangBatches = SettingMagang::all();
+        return view('admin.user.create',compact('roles','perusahaan','dosen','magangBatches'));
     }
 
     /**
@@ -138,7 +141,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::all();
-        return view('admin.user.edit',compact('user','roles'));
+        $perusahaan = Perusahaan::all();
+        $dosen = Dosen::all();
+
+        return view('admin.user.edit',compact('user','roles','perusahaan','dosen'));
     }
 
     /**
