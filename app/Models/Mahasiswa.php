@@ -48,5 +48,12 @@ public function penilaians()
         return $this->belongsTo(SettingMagang::class, 'magang_batch', 'magang_batch');
     }
 
+    public function dosenPenilai()
+    {
+        return $this->belongsToMany(Dosen::class, 'setting_mahasiswa', 'mhs_id', 'dosen_id');
+    }
+
+   
+
 
 }

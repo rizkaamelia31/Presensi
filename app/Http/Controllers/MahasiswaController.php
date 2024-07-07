@@ -248,6 +248,7 @@ class MahasiswaController extends Controller
 
         // Calculate the final score with weights
         $totalNilaiAkhir = ($totalEksternal * 0.7) + ($totalInternal * 0.3);
+        
 
         return view('mahasiswa.nilai_magang.index', compact('penilaians', 'totalNilaiAkhir'));
     }

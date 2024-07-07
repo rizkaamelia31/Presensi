@@ -30,16 +30,16 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $penilaian->kriteriaPenilaian->nama_kriteria }}</td>
                                 <td>{{ number_format($penilaian->kriteriaPenilaian->bobot, 0, '', '') }}%</td>
-                                <td>{{ number_format($penilaian->nilai, 0, '', '') }}</td> {{-- Nilai dikali bobot di sini, di-format tanpa desimal --}}
+                                <td>{{ number_format($penilaian->nilai, 0, '', '') }}</td>
                                 @php
-                                    $totalExternal += $penilaian->nilai * ($penilaian->kriteriaPenilaian->bobot / 100); // Nilai dikali bobot di sini
+                                    $totalExternal += $penilaian->nilai * ($penilaian->kriteriaPenilaian->bobot / 100);
                                 @endphp
                             </tr>
                         @endif
                     @endforeach
                     <tr>
                         <td colspan="3" class="text-end">Total External</td>
-                        <td>{{ number_format($totalExternal, 0, '', '') }}</td> {{-- Total External juga di-format tanpa desimal --}}
+                        <td>{{ number_format($totalExternal, 0, '', '') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -62,23 +62,34 @@
                 <tbody>
                     @php
                         $totalInternal = 0;
+                        $groupedInternal = $mahasiswa->penilaians->filter(function($penilaian) {
+                            return $penilaian->kriteriaPenilaian->jenis === 'internal';
+                        })->groupBy('kriteriaPenilaian.nama_kriteria');
                     @endphp
-                    @foreach ($mahasiswa->penilaians as $penilaian)
-                        @if ($penilaian->kriteriaPenilaian->jenis === 'internal')
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $penilaian->kriteriaPenilaian->nama_kriteria }}</td>
-                                <td>{{ number_format($penilaian->kriteriaPenilaian->bobot, 0, '', '') }}%</td>
-                                <td>{{ number_format($penilaian->nilai, 0, '', '') }}</td> {{-- Nilai dikali bobot di sini, di-format tanpa desimal --}}
-                                @php
-                                    $totalInternal += $penilaian->nilai * ($penilaian->kriteriaPenilaian->bobot / 100); // Nilai dikali bobot di sini
-                                @endphp
-                            </tr>
-                        @endif
+                    @foreach ($groupedInternal as $kriteria => $penilaians)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $kriteria }}</td>
+                            <td>
+                                @foreach ($penilaians as $penilaian)
+                                    {{ number_format($penilaian->kriteriaPenilaian->bobot, 0, '', '') }}%
+                                    @if (!$loop->last), @endif
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach ($penilaians as $penilaian)
+                                    {{ number_format($penilaian->nilai, 0, '', '') }}
+                                    @if (!$loop->last), @endif
+                                    @php
+                                        $totalInternal += $penilaian->nilai * ($penilaian->kriteriaPenilaian->bobot / 100);
+                                    @endphp
+                                @endforeach
+                            </td>
+                        </tr>
                     @endforeach
                     <tr>
                         <td colspan="3" class="text-end">Total Internal</td>
-                        <td>{{ number_format($totalInternal, 0, '', '') }}</td> {{-- Total Internal juga di-format tanpa desimal --}}
+                        <td>{{ number_format($totalInternal, 0, '', '') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -86,15 +97,12 @@
     </div>
     <div class="my-3 p-3 card">
         @php
-            $totalNilaiAkhir = ($totalInternal * 0.3) + ($totalExternal * 0.7); // Menghitung total nilai akhir dengan bobot 30% internal dan 70% eksternal
+            $totalNilaiAkhir = ($totalInternal * 0.3) + ($totalExternal * 0.7);
         @endphp
-        <p class="text-danger text-small m-0"*>Nilai internal 30% + Eksternal 70%</p>
-        <h3 class="fw-semibold">Total Nilai Akhir Mahasiswa = {{ $totalNilaiAkhir }}</h3> {{-- Total nilai akhir di-format tanpa desimal --}}
+        <p class="text-danger text-small m-0">Nilai internal 30% + Eksternal 70%</p>
+        <h3 class="fw-semibold">Total Nilai Akhir Mahasiswa = {{ number_format($totalNilaiAkhir, 1, '', '') }}</h3>
     </div>
     @endif
-
-   
     @endif
-
 </div>
 @endsection

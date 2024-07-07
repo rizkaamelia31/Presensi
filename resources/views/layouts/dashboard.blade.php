@@ -55,7 +55,7 @@
     <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="{{ asset('../assets') }}/vendor/libs/apex-charts/apex-charts.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -65,6 +65,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('../assets') }}/js/config.js"></script>
+
   </head>
 <style>
   @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
@@ -114,10 +115,16 @@
               <div data-i18n="Analytics">Kriteria Penilaian</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('settings_magang') ? 'active' : '' }}">
               <a href="/settings_magang" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Setting</div>
+                <div data-i18n="Analytics">Setting Periode Magang</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->is('setting_mahasiswa') ? 'active' : '' }}">
+              <a href="/setting_mahasiswa" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Setting Penilaian Mahasiswa</div>
               </a>
             </li>
 @endif
@@ -285,7 +292,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('../assets') }}/vendor/libs/jquery/jquery.js"></script>
     <script src="{{ asset('../assets') }}/vendor/libs/popper/popper.js"></script>
     <script src="{{ asset('../assets') }}/vendor/js/bootstrap.js"></script>
     <script src="{{ asset('../assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>

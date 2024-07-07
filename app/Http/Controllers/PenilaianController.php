@@ -24,11 +24,14 @@ class PenilaianController extends Controller
 
             return view('mitra.penilaian.index', compact('mahasiswa'));
         } else {
-            $dosen = $user->dosen;
+            $dosen_id = $user->dosen->id;
 
-            $mahasiswa = Mahasiswa::with(['user', 'penilaians.kriteriaPenilaian'])
-                ->get();
-
+            $mahasiswa = Mahasiswa::whereHas('dosenPenilai', function ($query) use ($dosen_id) {
+                $query->where('dosen_id', $dosen_id);
+            })
+            ->with(['user',  'penilaians.kriteriaPenilaian'])
+            ->get();
+            
             return view('mitra.penilaian.index', compact('mahasiswa'));
         }
     }
@@ -117,11 +120,20 @@ class PenilaianController extends Controller
     public function edit($mhs_id, $type)
     {
         $mahasiswa = Mahasiswa::findOrFail($mhs_id);
-        $penilaian = Penilaian::where('mhs_id', $mhs_id)
+        if(auth()->user()->role_id == 4){
+            $penilaian = Penilaian::where('mhs_id', $mhs_id)
                               ->where('dosen_id', auth()->user()->dosen->id)
                               ->whereHas('kriteriaPenilaian', function($query) use ($type) {
                                   $query->where('jenis', $type);
                               })->get();
+        }
+        else{
+            $penilaian = Penilaian::where('mhs_id', $mhs_id)
+                              ->where('perusahaan_id', auth()->user()->perusahaan->id)
+                              ->whereHas('kriteriaPenilaian', function($query) use ($type) {
+                                  $query->where('jenis', $type);
+                              })->get();
+        }
 
         $kriteriaPenilaian = KriteriaPenilaian::where('jenis', $type)->get();
 
@@ -164,10 +176,18 @@ class PenilaianController extends Controller
     }
 
     public function detail($mhs_id)
-    {
-        // Mengambil data mahasiswa beserta penilaiannya berdasarkan ID
+{
+    $mahasiswa = Mahasiswa::with(['user', 'penilaians.kriteriaPenilaian'])->findOrFail($mhs_id);
+    
+    if (auth()->user()->role_id == 4) {
+        $mahasiswa->penilaians = $mahasiswa->penilaians->filter(function ($penilaian) {
+            return $penilaian->dosen_id == auth()->user()->id;
+        });
+    } else {
         $mahasiswa = Mahasiswa::with(['user', 'penilaians.kriteriaPenilaian'])->findOrFail($mhs_id);
-
-        return view('mitra.penilaian.detail', compact('mahasiswa'));
     }
+
+    return view('mitra.penilaian.detail', compact('mahasiswa'));
+}
+
 }

@@ -24,4 +24,9 @@ public function penilaian()
     {
         return $this->hasMany(Penilaian::class, 'dosen_id');
     }
+
+    public function mahasiswaDinilai()
+    {
+        return $this->belongsToMany(Mahasiswa::class, 'setting_mahasiswa', 'dosen_id', 'mhs_id');
+    }
 }

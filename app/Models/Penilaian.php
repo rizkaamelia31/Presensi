@@ -22,6 +22,10 @@ class Penilaian extends Model
     {
         return $this->belongsTo(Mahasiswa::class);
     }
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
+    }
 
     public function kriteriaPenilaian()
     {

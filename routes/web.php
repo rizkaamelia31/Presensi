@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\JobDescController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SettingMagangController;
+use App\Http\Controllers\SettingMahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +52,6 @@ Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/dosen/penilaian_akhir', [DosenController::class, 'penilaian_akhir'])->name('dosen.penilaian_akhir.index');
     Route::get('/dosen/detail_penilaian_akhir', [DosenController::class, 'detail_penilaian_akhir'])->name('dosen.penilaian_akhir.detail');
     Route::get('/dosen/riwayat', [DosenController::class, 'riwayat'])->name('riwayat.index');
-    // Route::get('/dosen/user', [UserController::class, 'index'])->name('users.index');
-    // Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/dosen/penilaian_akhir', [DosenController::class, 'penilaian_akhir'])->name('dosen.penilaian_akhir.index');
 });
 
@@ -84,5 +83,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('kriteria-penilaian', KriteriaPenilaianController::class);
     Route::resource('settings_magang', SettingMagangController::class);
+    Route::get('setting_mahasiswa', [SettingMahasiswaController::class, 'index'])->name('setting_mahasiswa.index');
+    Route::get('setting_mahasiswa/create', [SettingMahasiswaController::class, 'create'])->name('setting_mahasiswa.create');
+    Route::post('setting_mahasiswa', [SettingMahasiswaController::class, 'store'])->name('setting_mahasiswa.store');
+    Route::get('setting_mahasiswa/{id}/edit', [SettingMahasiswaController::class, 'edit'])->name('setting_mahasiswa.edit');
+    Route::put('setting_mahasiswa/{id}', [SettingMahasiswaController::class, 'update'])->name('setting_mahasiswa.update');
+    Route::delete('setting_mahasiswa/{id}', [SettingMahasiswaController::class, 'destroy'])->name('setting_mahasiswa.destroy');
+
 });
 Auth::routes();
