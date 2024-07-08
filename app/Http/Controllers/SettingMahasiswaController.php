@@ -8,13 +8,23 @@ use Illuminate\Http\Request;
 
 class SettingMahasiswaController extends Controller
 {
-    public function index()
-    {
-        $mahasiswa = Mahasiswa::with('user', 'dosenPenilai.user')->get();
-        $dosens = Dosen::with('user')->get();
+    public function index(Request $request)
+{
+    $query = Mahasiswa::with('user', 'dosenPenilai.user');
 
-        return view('setting_mahasiswa.index', compact('mahasiswa', 'dosens'));
+    if ($request->has('magang_batch') && !empty($request->magang_batch)) {
+        $query->where('magang_batch', $request->magang_batch);
     }
+
+    $mahasiswa = $query->get();
+    $dosens = Dosen::with('user')->get();
+
+    // Get distinct magang batches for the filter dropdown
+    $batches = Mahasiswa::select('magang_batch')->distinct()->pluck('magang_batch');
+
+    return view('setting_mahasiswa.index', compact('mahasiswa', 'dosens', 'batches'));
+}
+
 
     public function create(Request $request)
     {
