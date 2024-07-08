@@ -74,10 +74,37 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="magang_batch">Magang Batch:</label>
-                        <input type="text" class="form-control" id="magang_batch" name="magang_batch" value="{{ old('magang_batch', $user->mahasiswa->magang_batch ?? '') }}">
+                        <label for="angkatan">Angkatan:</label>
+                        <input type="text" class="form-control" id="angkatan" name="angkatan" value="{{ old('angkatan', $user->mahasiswa->angkatan ?? '') }}">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nim">NIM:</label>
+                            <input type="text" class="form-control" id="nim" name="nim" value="{{ old('nim', $user->mahasiswa->nim ?? '') }}">
+                        </div>
+                    </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="magang_batch">Magang Batch:</label>
+                            <input type="text" class="form-control" id="magang_batch" name="magang_batch" value="{{ old('magang_batch', $user->mahasiswa->magang_batch ?? '') }}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dosen_id">Dosen:</label>
+                            <select class="form-control" id="dosen_id" name="dosen_id">
+                                <option value="">Pilih Dosen</option>
+                                @foreach ($dosen as $dosenItem)
+                                    <option value="{{ $dosenItem->id }}" {{ $user->mahasiswa->dosen_id == $dosenItem->id ? 'selected' : '' }}>{{ $dosenItem->user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -96,36 +123,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nim">NIM:</label>
-                        <input type="text" class="form-control" id="nim" name="nim" value="{{ old('nim', $user->mahasiswa->nim ?? '') }}">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="angkatan">Angkatan:</label>
-                        <input type="text" class="form-control" id="angkatan" name="angkatan" value="{{ old('angkatan', $user->mahasiswa->angkatan ?? '') }}">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
                         <label for="perusahaan_id_mhs">Perusahaan:</label>
                         <select class="form-control" id="perusahaan_id_mhs" name="perusahaan_id_mhs">
                             <option value="">Pilih Perusahaan</option>
                             @foreach ($perusahaan as $perusahaanItem)
                                 <option value="{{ $perusahaanItem->id }}" {{ $user->mahasiswa->perusahaan->id == $perusahaanItem->id ? 'selected' : '' }}>{{ $perusahaanItem->nama_perusahaan }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="dosen_id">Dosen:</label>
-                        <select class="form-control" id="dosen_id" name="dosen_id">
-                            <option value="">Pilih Dosen</option>
-                            @foreach ($dosen as $dosenItem)
-                                <option value="{{ $dosenItem->id }}" {{ $user->mahasiswa->dosen_id == $dosenItem->id ? 'selected' : '' }}>{{ $dosenItem->user->name }}</option>
                             @endforeach
                         </select>
                     </div>
